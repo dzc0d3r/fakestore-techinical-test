@@ -1,0 +1,21 @@
+{
+  "name": "weasydoo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+     "web:dev": "pnpm --filter web run dev",
+     "web:lint": "pnpm --filter web run lint",
+     "web:build": "pnpm --filter web run build",
+     "web:test": "pnpm --filter web run test",
+     "mobile:dev": "pnpm --filter mobile run start",
+     "mobile:test": "pnpm --filter mobile run test",
+     "test": "turbo test"
+
+  },
+  
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.7.1"
+}
