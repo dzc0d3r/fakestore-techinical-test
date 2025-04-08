@@ -8,6 +8,7 @@
      "web:lint": "pnpm --filter web run lint",
      "web:build": "pnpm --filter web run build",
      "web:test": "pnpm --filter web run test",
+     "web:add": "pnpm --filter web run shadcn:add",
      "mobile:dev": "pnpm --filter mobile run start",
      "mobile:test": "pnpm --filter mobile run test",
      "test": "turbo test"

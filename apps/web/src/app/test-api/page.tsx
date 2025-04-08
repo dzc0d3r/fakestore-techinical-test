@@ -1,7 +1,7 @@
 'use client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useProducts } from 'api'
-
+import {Button} from "@/components/ui/button"
 const queryClient = new QueryClient()
 
 function ProductsList() {
@@ -16,6 +16,7 @@ function ProductsList() {
         <li key={product.id} className="border p-2 rounded">
           <h2 className="font-medium">{product.title}</h2>
           <p className="text-gray-600">${product.price}</p>
+          <Button variant="destructive">click</Button>
         </li>
       ))}
     </ul>
