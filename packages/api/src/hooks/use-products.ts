@@ -27,9 +27,12 @@ export const useCreateProduct = () => {
   
   return useMutation({
     mutationFn: (newProduct: Omit<Product, 'id'>) => 
-      api.post('/products', newProduct),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] })
+      api.post('/products', newProduct).then(res => res.data),
+    onSuccess: (data) => {
+      queryClient.setQueryData(['product', data.id], data)
+      queryClient.setQueryData(['products'], (old: Product[] | undefined) => 
+        old ? [...old, data] : [data]
+      )
     }
   })
 }
@@ -39,9 +42,16 @@ export const useUpdateProduct = () => {
   
   return useMutation({
     mutationFn: (updatedProduct: Product) => 
-      api.put(`/products/${updatedProduct.id}`, updatedProduct),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] })
+      api.put(`/products/${updatedProduct.id}`, updatedProduct).then(res => res.data),
+    onSuccess: (data) => {
+      queryClient.setQueryData(['product', data.id], data)
+      queryClient.setQueryData(['products'], (old: Product[] | undefined) => 
+        old ? old.map(p => p.id === data.id ? data : p) : []
+      )
+      queryClient.invalidateQueries({ queryKey: ['product', data.id] })
+    },
+    onError: (error) => {
+      console.error('Error updating product:', error)
     }
   })
 }
@@ -52,8 +62,11 @@ export const useDeleteProduct = () => {
   return useMutation({
     mutationFn: (id: number) => 
       api.delete(`/products/${id}`),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] })
+    onSuccess: (_, id) => {
+      queryClient.setQueryData(['products'], (old: Product[] | undefined) => 
+        old ? old.filter(p => p.id !== id) : []
+      )
+      queryClient.invalidateQueries({ queryKey: ['product', id] })
     }
   })
 }

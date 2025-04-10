@@ -5,8 +5,9 @@ import {
   useCreateProduct,
   useUpdateProduct,
   useDeleteProduct
-} from "./hooks/use-products.js";
-import type { Product } from "./types/products.js";
+} from "@/hooks/use-products"
+import { useAuth, type LoginCredentials, type LoginResponse } from "@/hooks/use-auth";
+import type { Product } from "@/types/products";
 
 export const api = axios.create({
   baseURL: "https://fakestoreapi.com",
@@ -17,6 +18,7 @@ export {
   useProduct,
   useCreateProduct,
   useUpdateProduct,
-  useDeleteProduct
+  useDeleteProduct,
+  useAuth
 };
-export type { Product };
+export type { Product, LoginCredentials, LoginResponse };
