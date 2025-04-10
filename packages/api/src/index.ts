@@ -7,7 +7,6 @@ import {
   useDeleteProduct
 } from "@/hooks/use-products"
 import type { Product } from "@/types/products";
-import { Jwt } from "jsonwebtoken";
 
 export type LoginCredentials = {
   username: string;
@@ -15,7 +14,8 @@ export type LoginCredentials = {
 };
 
 export type LoginResponse = {
-  token: string;
+  token?: string;
+  error?: any;
 };
 
 export const api = axios.create({
@@ -27,7 +27,7 @@ export const login = async (credentials: LoginCredentials): Promise<LoginRespons
     const response = await api.post<LoginResponse>('auth/login', credentials);
     return response.data;
   } catch (error) {
-    throw error;
+    return error as any;
   }
 };
 

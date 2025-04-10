@@ -3,9 +3,10 @@ import type { User, Session, NextAuthConfig } from "next-auth";
 import type { JWT } from "next-auth/jwt"
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import {login} from "api";
+import { jwtDecode } from "jwt-decode"
+import { login } from "api";
 
-
+const admins_id = [1, 10]
 
 const authOptions = {
   pages: {
@@ -24,18 +25,19 @@ const authOptions = {
             username: credentials.username as string,
             password: credentials.password as string
           });
-          const data = { token };
-          if (!data.token) {
-            return null;
+          if (!token) {
+            console.log("oops")
           }
+          const decoded: any = jwtDecode(token as string);
           const user: User = {
-            token: data.token,
-            username: credentials.username as string,
-            role: credentials.username === "mor_2314" ? "admin" : "user"
+            token: token,
+            username: decoded?.user,
+            role: admins_id.includes(decoded?.sub) ? "admin" : "user"
           };
           return user;
         } catch (error) {
-          throw error;
+          console.error('Authentication error:', error);
+          return null;
         }
       },
     }),

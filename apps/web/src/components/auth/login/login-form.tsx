@@ -40,18 +40,15 @@ export default function LoginForm({ closeModal }: LoginFormProps): JSX.Element {
       
     },
   })
-
   async function onSubmit(values: z.infer<typeof formSchema>): Promise<void> {
-    
     const login = await signIn("credentials", {
       username: values.username,
       password: values.password,
       callbackUrl: redirectTo,
       redirect: false,
-         
     })
     if (login?.error === "CredentialsSignin") {
-      toast.error("Don't know you 🤪")
+      toast.error("Wrong username or password");
     } else {
       await signIn("credentials", {
       username: values.username,
@@ -60,22 +57,10 @@ export default function LoginForm({ closeModal }: LoginFormProps): JSX.Element {
       })
       toast.success(`Welcome back, ${values.username}!`)
     }
-
-
-    
-    
   }
   return (
     <Form {...form}>
-
-
       <form className="grid gap-4" onSubmit={form.handleSubmit(onSubmit)}>
-
-
-
-
-
-
         <FormField
           control={form.control}
           name="username"
@@ -90,7 +75,6 @@ export default function LoginForm({ closeModal }: LoginFormProps): JSX.Element {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="password"
@@ -120,15 +104,8 @@ export default function LoginForm({ closeModal }: LoginFormProps): JSX.Element {
             </Button>
           </Link>
         </div>
-
-
-
       </form>
-
-
     </Form>
   )
-
-
 }
 
