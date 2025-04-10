@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import {SessionProvider} from "next-auth/react";
+import NavBar from "@/components/navbar/nav-bar";
+import { Slide, ToastContainer } from "react-toastify";
+import { CartProvider } from "@/providers/cart-provider"
 import "./globals.css";
-
+import "react-toastify/dist/ReactToastify.css"
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -20,15 +24,38 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  login,
+  signup
 }: Readonly<{
   children: React.ReactNode;
+  login: React.ReactNode;
+  signup: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <SessionProvider>
+          <CartProvider>
+          <ToastContainer
+                    autoClose={3000}
+                    closeOnClick
+                    draggable
+                    hideProgressBar={false}
+                    newestOnTop
+                    pauseOnFocusLoss
+                    pauseOnHover
+                    position='top-right'
+                    toastClassName=' p-3 space-x-2 w-full'
+                    transition={Slide}
+                />
+          <NavBar />
+          {children}
+          {login}
+          {signup}
+         </CartProvider>
+        </SessionProvider>
       </body>
     </html>
   );
