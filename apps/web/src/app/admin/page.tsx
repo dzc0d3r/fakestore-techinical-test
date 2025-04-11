@@ -1,4 +1,4 @@
-
+import Products  from "./_components/products"
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
@@ -9,7 +9,7 @@ export default async function Page() {
  
   return (
     <div>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
+      <Products />
     </div>
   )
 }

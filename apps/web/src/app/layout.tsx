@@ -4,8 +4,11 @@ import {SessionProvider} from "next-auth/react";
 import NavBar from "@/components/navbar/nav-bar";
 import { Slide, ToastContainer } from "react-toastify";
 import { CartProvider } from "@/providers/cart-provider"
+import {ReactQueryProvider} from "@/providers/reac-query-provider"
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css"
+
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -51,9 +54,11 @@ export default function RootLayout({
                     transition={Slide}
                 />
           <NavBar />
+        <ReactQueryProvider>
           {children}
           {login}
           {signup}
+         </ReactQueryProvider>
          </CartProvider>
         </SessionProvider>
       </body>
