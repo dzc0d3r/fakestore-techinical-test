@@ -26,7 +26,7 @@ export const useCreateProduct = () => {
   const queryClient = useQueryClient()
   
   return useMutation({
-    mutationFn: (newProduct: Omit<Product, 'id'>) => 
+    mutationFn: (newProduct: Product) => 
       api.post('/products', newProduct).then(res => res.data),
     onSuccess: (data) => {
       queryClient.setQueryData(['product', data.id], data)

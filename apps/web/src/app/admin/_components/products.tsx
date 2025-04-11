@@ -1,4 +1,6 @@
 'use client'
+import { toast } from "react-toastify"
+import { useSearchParams } from 'next/navigation'
 import { 
   useProducts,
   useProduct,
@@ -7,7 +9,7 @@ import {
   useDeleteProduct,
   type Product
 } from 'api'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -53,15 +55,27 @@ const formSchema = z.object({
 })
 
 export default function Products() {
+  const searchParams = useSearchParams()
+  const productQuery = searchParams.get('product') 
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [createModalOpen, setCreateModalOpen] = useState(false)
-  const [editingProduct, setEditingProduct] = useState<{
-    id: number | null
-    title: string
-    price: number
-  } | null>(null)
+  const [editModalOpen, setEditModalOpen] = useState(false)
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null)
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  
+
+
+  const createForm = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: '',
+      price: 0,
+      category: '',
+      description: '',
+    }
+  })
+
+  const editForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
@@ -77,46 +91,50 @@ export default function Products() {
     isLoading, 
     error
   } = useProducts()
-  const { data: selectedProduct } = useProduct(selectedId ?? 0)
+  const selectedProduct  = products?.filter((product) => product.id == selectedId)[0]// useProduct(selectedId ?? 0)
+
 
   // Mutations
   const create = useCreateProduct()
   const update = useUpdateProduct()
   const remove = useDeleteProduct()
 
+  useEffect(() => {
+    if (editingProduct) {
+      editForm.reset({
+        title: editingProduct.title,
+        price: editingProduct.price,
+        category: editingProduct.category,
+        description: editingProduct.description
+      })
+    }
+  }, [editingProduct, editForm])
+
   const handleCreate = async (values: z.infer<typeof formSchema>) => {
     try {
       await create.mutateAsync({
+        id: Math.floor(Math.random() * 10000),
         ...values,
         image: 'https://placehold.co/300x300/png',
-        rating: {
-          rate: 0,
-          count: 0
-        }
+        rating: { rate: 0, count: 0 }
       })
-      form.reset()
+      createForm.reset()
       setCreateModalOpen(false)
+      toast.success(`Successfully created product `)
     } catch (err) {
       console.error('Create error:', err)
     }
   }
 
-  const handleEdit = (product: Product) => {
-    setEditingProduct({
-      id: product.id,
-      title: product.title,
-      price: product.price
-    })
-  }
-
-  const handleUpdate = async (product: Product) => {
-    if (!editingProduct?.title || !editingProduct.price) return
+  const handleUpdate = async (values: z.infer<typeof formSchema>) => {
+    if (!editingProduct) return
+    
     try {
       await update.mutateAsync({
-        ...product,
-        title: editingProduct.title,
-        price: editingProduct.price
+        ...editingProduct,
+        ...values
       })
+      setEditModalOpen(false)
       setEditingProduct(null)
     } catch (err) {
       console.error('Update error:', err)
@@ -149,10 +167,10 @@ export default function Products() {
           <DialogHeader>
             <DialogTitle>Create New Product</DialogTitle>
           </DialogHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleCreate)} className="space-y-4">
+          <Form {...createForm}>
+            <form onSubmit={createForm.handleSubmit(handleCreate)} className="space-y-4">
               <FormField
-                control={form.control}
+                control={createForm.control}
                 name="title"
                 render={({ field }) => (
                   <FormItem>
@@ -166,7 +184,7 @@ export default function Products() {
               />
 
               <FormField
-                control={form.control}
+                control={createForm.control}
                 name="price"
                 render={({ field }) => (
                   <FormItem>
@@ -185,7 +203,7 @@ export default function Products() {
               />
 
               <FormField
-                control={form.control}
+                control={createForm.control}
                 name="category"
                 render={({ field }) => (
                   <FormItem>
@@ -209,7 +227,7 @@ export default function Products() {
               />
 
               <FormField
-                control={form.control}
+                control={createForm.control}
                 name="description"
                 render={({ field }) => (
                   <FormItem>
@@ -234,90 +252,149 @@ export default function Products() {
         </DialogContent>
       </Dialog>
 
+      {/* Edit Product Modal */}
+      <Dialog open={editModalOpen} onOpenChange={(open) => {
+        if (!open) {
+          setEditModalOpen(false)
+          setEditingProduct(null)
+        }
+      }}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Edit Product</DialogTitle>
+          </DialogHeader>
+          <Form {...editForm}>
+            <form onSubmit={editForm.handleSubmit(handleUpdate)} className="space-y-4">
+              <FormField
+                control={editForm.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Title</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Product title" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={editForm.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Price</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="0.00"
+                        {...field}
+                        onChange={e => field.onChange(parseFloat(e.target.value))}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={editForm.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select category" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="electronics">Electronics</SelectItem>
+                        <SelectItem value="jewelery">Jewelry</SelectItem>
+                        <SelectItem value="men's clothing">Mens Clothing</SelectItem>
+                        <SelectItem value="women's clothing">Women Clothing</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={editForm.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Product description" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <Button 
+                type="submit"
+                disabled={update.isPending}
+                className="w-full"
+              >
+                {update.isPending ? 'Updating...' : 'Update Product'}
+              </Button>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+
       {/* Products Table */}
       <div className="space-y-4">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Title</TableHead>
-              <TableHead>Price</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {isLoading ? (
-              // Loading Skeletons
-              Array(5).fill(0).map((_, index) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <Skeleton className="h-7 w-[800px]" />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton className="h-7 w-[100px]" />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton className="h-7 w-[150px]" />
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex gap-2">
-                      <Skeleton className="h-8 w-12" />
-                      <Skeleton className="h-8 w-12" />
-                      <Skeleton className="h-8 w-12" />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              // Actual Data
-              [...(products || [])].reverse().map((product) => (
-                <TableRow key={product.id}>
-                  {editingProduct?.id === product.id ? (
-                    <>
-                      <TableCell>
-                        <Input
-                          value={editingProduct.title}
-                          onChange={(e) => setEditingProduct({
-                            ...editingProduct,
-                            title: e.target.value
-                          })}
-                        />
+        <div className="rounded-md border">
+          <Table>
+            <TableHeader>
+              <TableRow className='bg-gray-100'>
+                <TableHead className="w-[lg:700px]">Title</TableHead>
+                <TableHead className="w-[lg:120px]">Price</TableHead>
+                <TableHead className="w-[lg:180px]">Category</TableHead>
+                <TableHead className="w-[lg:200px]">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {isLoading ? (
+                Array(9).fill(0).map((_, index) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      <Skeleton className="h-4 lg:w-[800px]" />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton className="h-4 lg:w-[80px]" />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton className="h-4 lg:w-[120px]" />
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex gap-2">
+                        <Skeleton className="h-8 w-12" />
+                        <Skeleton className="h-8 w-12" />
+                        <Skeleton className="h-8 w-12" />
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                [...(products || [])]
+                  .filter(product => !productQuery || product.id === Number(productQuery))
+                  .reverse()
+                  .map((product) => (
+                    <TableRow key={product.id}>
+                      <TableCell className="font-medium">
+                        {product.title}
                       </TableCell>
-                      <TableCell>
-                        <Input
-                          type="number"
-                          value={editingProduct.price}
-                          onChange={(e) => setEditingProduct({
-                            ...editingProduct,
-                            price: Number(e.target.value)
-                          })}
-                        />
+                      <TableCell>${product.price.toFixed(2)}</TableCell>
+                      <TableCell className="capitalize">
+                        {product.category}
                       </TableCell>
-                      <TableCell>{product.category}</TableCell>
-                      <TableCell>
-                        <div className="flex gap-2">
-                          <Button
-                            size="sm"
-                            onClick={() => handleUpdate(product)}
-                            disabled={update.isPending}
-                          >
-                            {update.isPending ? 'Saving...' : 'Save'}
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => setEditingProduct(null)}
-                          >
-                            Cancel
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </>
-                  ) : (
-                    <>
-                      <TableCell className="font-medium">{product.title}</TableCell>
-                      <TableCell>${product.price}</TableCell>
-                      <TableCell>{product.category}</TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
@@ -330,7 +407,10 @@ export default function Products() {
                           <Button
                             size="sm"
                             variant="secondary"
-                            onClick={() => handleEdit(product)}
+                            onClick={() => {
+                              setEditingProduct(product)
+                              setEditModalOpen(true)
+                            }}
                           >
                             Edit
                           </Button>
@@ -344,13 +424,12 @@ export default function Products() {
                           </Button>
                         </div>
                       </TableCell>
-                    </>
-                  )}
-                </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
+                    </TableRow>
+                  ))
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
 
       {/* Product Details Modal */}
@@ -372,13 +451,13 @@ export default function Products() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-lg font-medium">{selectedProduct.title}</h3>
-                  <p className="text-gray-600">${selectedProduct.price}</p>
-                  <p className="text-sm text-gray-500">{selectedProduct.category}</p>
-                  <p className="text-sm">{selectedProduct.description}</p>
+                  <h3 className="text-lg font-medium">{selectedProduct?.title}</h3>
+                  <p className="text-gray-600">${selectedProduct?.price.toFixed(2)}</p>
+                  <p className="text-sm text-gray-500 capitalize">{selectedProduct?.category}</p>
+                  <p className="text-sm">{selectedProduct?.description}</p>
                   <div className="flex items-center gap-1 text-sm">
-                    <span>Rating: {selectedProduct.rating?.rate}</span>
-                    <span>({selectedProduct.rating?.count} reviews)</span>
+                    <span>Rating: {selectedProduct?.rating?.rate || 0}</span>
+                    <span>({selectedProduct?.rating?.count || 0} reviews)</span>
                   </div>
                 </div>
               </div>
