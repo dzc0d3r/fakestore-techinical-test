@@ -1,12 +1,12 @@
-import axios from "axios";
 import {
-  useProducts,
-  useProduct,
   useCreateProduct,
+  useDeleteProduct,
+  useProduct,
+  useProducts,
   useUpdateProduct,
-  useDeleteProduct
-} from "@/hooks/use-products"
+} from "@/hooks/use-products";
 import type { Product } from "@/types/products";
+import axios from "axios";
 
 export type LoginCredentials = {
   username: string;
@@ -22,9 +22,11 @@ export const api = axios.create({
   baseURL: "https://fakestoreapi.com",
 });
 
-export const login = async (credentials: LoginCredentials): Promise<LoginResponse> => {
+export const login = async (
+  credentials: LoginCredentials,
+): Promise<LoginResponse> => {
   try {
-    const response = await api.post<LoginResponse>('auth/login', credentials);
+    const response = await api.post<LoginResponse>("auth/login", credentials);
     return response.data;
   } catch (error) {
     return error as any;
@@ -36,6 +38,6 @@ export {
   useProduct,
   useCreateProduct,
   useUpdateProduct,
-  useDeleteProduct
+  useDeleteProduct,
 };
 export type { Product };

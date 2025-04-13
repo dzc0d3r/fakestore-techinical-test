@@ -1,14 +1,13 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import {SessionProvider} from "next-auth/react";
+import { Footer } from "@/components/footer";
 import NavBar from "@/components/navbar/nav-bar";
+import { CartProvider } from "@/providers/cart-provider";
+import { ReactQueryProvider } from "@/providers/reac-query-provider";
+import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
+import localFont from "next/font/local";
 import { Slide, ToastContainer } from "react-toastify";
-import { CartProvider } from "@/providers/cart-provider"
-import {ReactQueryProvider} from "@/providers/reac-query-provider"
-import { Footer } from "@/components/footer"
 import "./globals.css";
-import "react-toastify/dist/ReactToastify.css"
-
+import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,7 +28,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
   login,
-  signup
+  signup,
 }: Readonly<{
   children: React.ReactNode;
   login: React.ReactNode;
@@ -42,29 +41,27 @@ export default function RootLayout({
       >
         <SessionProvider>
           <ReactQueryProvider>
-          <CartProvider>
-          <ToastContainer
-                    autoClose={3000}
-                    closeOnClick
-                    draggable
-                    hideProgressBar={false}
-                    newestOnTop
-                    pauseOnFocusLoss
-                    pauseOnHover
-                    position='top-right'
-                    toastClassName=' p-3 space-x-2 w-full'
-                    transition={Slide}
-                />
-          
-        
-          <NavBar />
-          {children}
-          {login}
-          {signup}
-          <Footer />
-         
-         </CartProvider>
-         </ReactQueryProvider>
+            <CartProvider>
+              <ToastContainer
+                autoClose={3000}
+                closeOnClick
+                draggable
+                hideProgressBar={false}
+                newestOnTop
+                pauseOnFocusLoss
+                pauseOnHover
+                position="top-right"
+                toastClassName=" p-3 space-x-2 w-full"
+                transition={Slide}
+              />
+
+              <NavBar />
+              {children}
+              {login}
+              {signup}
+              <Footer />
+            </CartProvider>
+          </ReactQueryProvider>
         </SessionProvider>
       </body>
     </html>

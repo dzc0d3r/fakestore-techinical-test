@@ -1,11 +1,17 @@
-import { Image, StyleSheet, Platform, FlatList, TouchableOpacity } from 'react-native';
-import { useQueryClient } from '@tanstack/react-query';
-import { Link } from 'expo-router';
-import { useProducts } from 'api';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { ProductCard } from '@/components/ProductCard';
+import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { ProductCard } from "@/components/ProductCard";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { useQueryClient } from "@tanstack/react-query";
+import { useProducts } from "api";
+import { Link } from "expo-router";
+import {
+  FlatList,
+  Image,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
 const SkeletonCard = () => (
   <ThemedView style={styles.skeletonCard}>
@@ -24,15 +30,18 @@ export default function HomeScreen() {
 
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
+          source={require("@/assets/images/partial-react-logo.png")}
           style={styles.reactLogo}
         />
-      }>
+      }
+    >
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title" style={styles.titleText}>Featured Products</ThemedText>
+        <ThemedText type="title" style={styles.titleText}>
+          Featured Products
+        </ThemedText>
       </ThemedView>
 
       {isError ? (
@@ -78,8 +87,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
     marginBottom: 16,
     paddingHorizontal: 16,
@@ -87,8 +96,8 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 8,
   },
   listContainer: {
@@ -97,31 +106,31 @@ const styles = StyleSheet.create({
   },
   errorContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 16,
-    backgroundColor: '#ff000020',
+    backgroundColor: "#ff000020",
   },
   emptyContainer: {
     padding: 16,
-    alignItems: 'center',
+    alignItems: "center",
   },
   exploreContainer: {
     marginTop: 24,
     gap: 8,
     padding: 16,
     borderTopWidth: 1,
-    borderTopColor: '#00000020',
+    borderTopColor: "#00000020",
   },
   reactLogo: {
     height: 178,
     width: 290,
     bottom: 0,
     left: 0,
-    position: 'absolute',
+    position: "absolute",
   },
   skeletonCard: {
-    flexDirection: 'row',
+    flexDirection: "row",
     borderRadius: 8,
     padding: 12,
     gap: 12,
@@ -139,14 +148,14 @@ const styles = StyleSheet.create({
   skeletonLine: {
     height: 16,
     borderRadius: 4,
-    width: '80%',
+    width: "80%",
   },
   skeletonLineShort: {
     height: 16,
     borderRadius: 4,
-    width: '60%',
+    width: "60%",
   },
   skeleton: {
-    backgroundColor: '#e1e4e8',
+    backgroundColor: "#e1e4e8",
   },
 });

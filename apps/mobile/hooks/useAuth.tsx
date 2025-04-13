@@ -1,9 +1,16 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import * as SecureStore from 'expo-secure-store';
-import { login, LoginCredentials, LoginResponse } from 'api';
-import { Platform } from 'react-native';
-import { router } from 'expo-router';
-import {jwtDecode} from "jwt-decode"
+import { login, LoginCredentials, LoginResponse } from "api";
+import { router } from "expo-router";
+import * as SecureStore from "expo-secure-store";
+import { jwtDecode } from "jwt-decode";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { Platform } from "react-native";
+
 type AuthContextType = {
   isAdmin: boolean;
   token: string | null;
@@ -12,7 +19,7 @@ type AuthContextType = {
   logout: () => Promise<void>;
 };
 
-const adminsID = [1, 10]
+const adminsID = [1, 10];
 const AuthContext = createContext<AuthContextType>({
   isAdmin: false,
   token: null,
@@ -21,7 +28,7 @@ const AuthContext = createContext<AuthContextType>({
   logout: async () => {},
 });
 
-const TOKEN_KEY = 'auth_token';
+const TOKEN_KEY = "auth_token";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
@@ -31,8 +38,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const loadToken = useCallback(async () => {
     try {
       let storedToken = null;
-      
-      if (Platform.OS === 'web') {
+
+      if (Platform.OS === "web") {
         storedToken = localStorage.getItem(TOKEN_KEY);
       } else {
         storedToken = await SecureStore.getItemAsync(TOKEN_KEY);
@@ -40,10 +47,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (storedToken) {
         setToken(storedToken);
-        router.replace('/');
+        router.replace("/");
       }
     } catch (error) {
-      console.error('Failed to load token', error);
+      console.error("Failed to load token", error);
       setToken(null);
     } finally {
       setIsLoading(false);
@@ -54,22 +61,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     loadToken();
   }, [loadToken]);
 
-// In your handleLogin function within AuthProvider
+  // In your handleLogin function within AuthProvider
   const handleLogin = async (credentials: LoginCredentials) => {
     try {
       const response = await login(credentials);
       const decodedToken: any = jwtDecode(response?.token);
-      const isAdmin = adminsID.includes(decodedToken?.sub)
+      const isAdmin = adminsID.includes(decodedToken?.sub);
       setIsAdmin(isAdmin);
-      console.log("isAdmin", isAdmin)
-      
+      console.log("isAdmin", isAdmin);
+
       if (!response.token) {
         // Throw error if no token received
-        throw new Error(response.error || 'Authentication failed');
+        throw new Error(response.error || "Authentication failed");
       }
 
       // Store token
-      if (Platform.OS === 'web') {
+      if (Platform.OS === "web") {
         localStorage.setItem(TOKEN_KEY, response.token);
       } else {
         await SecureStore.setItemAsync(TOKEN_KEY, response.token);
@@ -78,7 +85,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setToken(response.token);
       return response;
     } catch (error) {
-      console.error('Login failed', error);
+      console.error("Login failed", error);
       throw error; // Make sure to re-throw the error
     }
   };
@@ -86,16 +93,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const handleLogout = async () => {
     try {
       setToken(null);
-      
-      if (Platform.OS === 'web') {
+
+      if (Platform.OS === "web") {
         localStorage.removeItem(TOKEN_KEY);
       } else {
         await SecureStore.deleteItemAsync(TOKEN_KEY);
       }
-      
-      router.replace('/');
+
+      router.replace("/");
     } catch (error) {
-      console.error('Failed to logout', error);
+      console.error("Failed to logout", error);
     }
   };
 

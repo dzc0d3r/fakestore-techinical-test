@@ -1,6 +1,7 @@
-"use client"
-import type { ReactNode } from 'react';
-import  { createContext, useState, useEffect } from 'react';
+"use client";
+
+import type { ReactNode } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export interface CartItem {
   id: number;
@@ -16,7 +17,6 @@ export interface CartContextValue {
   clearCart: () => void;
   getCartTotal: () => number;
   deleteFromCart: (itemId: number) => void;
-
 }
 
 interface CartProviderProps {
@@ -26,9 +26,14 @@ interface CartProviderProps {
 // Create the context with a default value
 export const CartContext = createContext({} as CartContextValue);
 
-export function CartProvider ({ children } : CartProviderProps): React.JSX.Element {
+export function CartProvider({
+  children,
+}: CartProviderProps): React.JSX.Element {
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    const storedCartItems = typeof localStorage !== 'undefined' ? localStorage.getItem('cartItems') : null;
+    const storedCartItems =
+      typeof localStorage !== "undefined"
+        ? localStorage.getItem("cartItems")
+        : null;
     return storedCartItems ? (JSON.parse(storedCartItems) as CartItem[]) : [];
   });
 
@@ -40,8 +45,8 @@ export function CartProvider ({ children } : CartProviderProps): React.JSX.Eleme
         cartItems.map((cartItem) =>
           cartItem.id === item.id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        )
+            : cartItem,
+        ),
       );
     } else {
       setCartItems([...cartItems, { ...item, quantity: 1 }]);
@@ -58,8 +63,8 @@ export function CartProvider ({ children } : CartProviderProps): React.JSX.Eleme
         cartItems.map((cartItem) =>
           cartItem.id === item.id
             ? { ...cartItem, quantity: cartItem.quantity - 1 }
-            : cartItem
-        )
+            : cartItem,
+        ),
       );
     }
   };
@@ -69,18 +74,21 @@ export function CartProvider ({ children } : CartProviderProps): React.JSX.Eleme
   };
 
   const getCartTotal = (): number => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0,
+    );
   };
   const deleteFromCart = (itemId: number): void => {
-  setCartItems(cartItems.filter((cartItem) => cartItem.id !== itemId));
-};
+    setCartItems(cartItems.filter((cartItem) => cartItem.id !== itemId));
+  };
 
   useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
   useEffect(() => {
-    const storedCartItems = localStorage.getItem('cartItems');
+    const storedCartItems = localStorage.getItem("cartItems");
     if (storedCartItems) {
       setCartItems(JSON.parse(storedCartItems) as CartItem[]);
     }
@@ -88,19 +96,16 @@ export function CartProvider ({ children } : CartProviderProps): React.JSX.Eleme
 
   return (
     <CartContext.Provider
-
-      value={
-        {
+      value={{
         cartItems,
         addToCart,
         removeFromCart,
         clearCart,
         getCartTotal,
-        deleteFromCart
-        }
-      }
+        deleteFromCart,
+      }}
     >
       {children}
     </CartContext.Provider>
   );
-};
+}

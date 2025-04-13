@@ -1,40 +1,43 @@
-"use client"
-import { useSession } from "next-auth/react"
-import type { Product } from "api"
-import { Button } from "@/components/ui/button"
-import { ShoppingCart } from "lucide-react"
-import { useContext } from "react"
-import { CartContext } from "@/providers/cart-provider"
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { CartContext } from "@/providers/cart-provider";
+import type { Product } from "api";
+import { ShoppingCart } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { useContext } from "react";
 
 interface AdminActionProps {
-    product: Product,   
+  product: Product;
 }
 
-export default function CartButton({ product }: AdminActionProps): React.JSX.Element {
-   const {addToCart} = useContext(CartContext)
-   const {data: session} = useSession()
+export default function CartButton({
+  product,
+}: AdminActionProps): React.JSX.Element {
+  const { addToCart } = useContext(CartContext);
+  const { data: session } = useSession();
 
-   const handleAddToCart = (): void => {
+  const handleAddToCart = (): void => {
     addToCart({
       id: product.id,
       name: product.title,
       price: product.price,
-      quantity: 1
-    })
-
-   }
-   return (
+      quantity: 1,
+    });
+  };
+  return (
     <>
-    {session?.user.role === "user" && (
-        <div className="flex flex-row justify-end mb-5 z-10" >
-         
-         <Button className="rounded-full flex gap-1 hover:scale-105" onClick={handleAddToCart} size="icon">
-            <ShoppingCart size="16" /> 
-         </Button>
-         
-
+      {session?.user.role === "user" && (
+        <div className="z-10 mb-5 flex flex-row justify-end">
+          <Button
+            className="flex gap-1 rounded-full hover:scale-105"
+            onClick={handleAddToCart}
+            size="icon"
+          >
+            <ShoppingCart size="16" />
+          </Button>
         </div>
-    )}
+      )}
     </>
-  )
+  );
 }

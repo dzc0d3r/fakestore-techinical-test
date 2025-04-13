@@ -1,11 +1,9 @@
-import Modal from "./modal"
+import Modal from "./modal";
 
 export default function Page(): JSX.Element {
   return (
-    <div className="min-h-screen min-w-full flex relative">
-       <Modal  />
-        
+    <div className="relative flex min-h-screen min-w-full">
+      <Modal />
     </div>
-  )
+  );
 }
-

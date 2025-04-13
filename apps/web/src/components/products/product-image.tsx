@@ -1,14 +1,13 @@
 "use client";
 
+import type { Product } from "api";
 import Image from "next/image";
 import { useState } from "react";
-import type {Product} from "api"
-
 
 interface ProductProps {
   product: Product;
   fill?: boolean;
-};
+}
 
 function ProductImage({ product, fill }: ProductProps): JSX.Element {
   const [loading, setLoading] = useState(true);
@@ -24,7 +23,9 @@ function ProductImage({ product, fill }: ProductProps): JSX.Element {
               : "scale-100 blur-0 grayscale-0"
           }}`}
           fill
-          onLoad={() => { setLoading(false); }}
+          onLoad={() => {
+            setLoading(false);
+          }}
           src={product.image}
         />
       ) : (
@@ -36,7 +37,9 @@ function ProductImage({ product, fill }: ProductProps): JSX.Element {
               : "scale-100 blur-0 grayscale-0"
           }}`}
           height={1000}
-          onLoad={() => { setLoading(false); }}
+          onLoad={() => {
+            setLoading(false);
+          }}
           src={product.image}
           width={400}
         />

@@ -1,7 +1,7 @@
-import { render } from "@testing-library/react";
 import Products from "@/components/products";
-import { describe, it, expect, vi } from "vitest";
+import { render } from "@testing-library/react";
 import { useProducts } from "api";
+import { describe, expect, it, vi } from "vitest";
 
 // Mock next-auth session provider and hooks
 vi.mock("next-auth/react", () => ({
@@ -18,7 +18,7 @@ vi.mock("api", () => ({
 vi.mock("./single-product", () => ({
   default: ({ product }: any) => (
     <div data-testid="single-product">{product.name}</div>
-  )
+  ),
 }));
 
 // Mock cart component if it uses session
@@ -30,7 +30,7 @@ vi.mock("./cart", () => ({
 vi.mock("@/components/ui/skeleton", () => ({
   Skeleton: ({ className }: { className?: string }) => (
     <div className={className} data-testid="skeleton" />
-  )
+  ),
 }));
 
 describe("Products", () => {
@@ -63,7 +63,7 @@ describe("Products", () => {
       { id: 1, title: "Product 1", price: 100 },
       { id: 2, title: "Product 2", price: 200 },
     ];
-    
+
     mockUseProducts.mockReturnValue({
       data: mockProducts,
       isLoading: false,

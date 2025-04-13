@@ -1,7 +1,6 @@
-"use client"
-import { useContext, useState, useEffect } from 'react'
-import { ShoppingCart, Minus, Plus, Trash2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
+"use client";
+
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -11,26 +10,35 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
 import type { CartItem } from "@/providers/cart-provider";
-import { CartContext } from "@/providers/cart-provider"
+import { CartContext } from "@/providers/cart-provider";
+import { Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
+import { useContext, useEffect, useState } from "react";
 
 export default function Cart(): JSX.Element {
-  const { cartItems, addToCart, removeFromCart, deleteFromCart, clearCart, getCartTotal } = useContext(CartContext);
-  const [itemsInCart, setItemsInCart] = useState<CartItem[]>([])
+  const {
+    cartItems,
+    addToCart,
+    removeFromCart,
+    deleteFromCart,
+    clearCart,
+    getCartTotal,
+  } = useContext(CartContext);
+  const [itemsInCart, setItemsInCart] = useState<CartItem[]>([]);
 
   useEffect(() => {
-    setItemsInCart(cartItems)
-  }, [cartItems])
+    setItemsInCart(cartItems);
+  }, [cartItems]);
 
   return (
-    <div className="relative flex items-center gap-4 flex-row">
+    <div className="relative flex flex-row items-center gap-4">
       <Sheet>
         <SheetTrigger asChild>
           <div className="hover:cursor-pointer">
             <ShoppingCart />
             {itemsInCart.length > 0 && (
-              <span className="absolute -top-3 -right-1 bg-red-500 rounded-full w-4 h-4 text-[.7rem] text-white font-medium flex items-center justify-center">
+              <span className="absolute -right-1 -top-3 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[.7rem] font-medium text-white">
                 {itemsInCart.length}
               </span>
             )}
@@ -43,17 +51,20 @@ export default function Cart(): JSX.Element {
               Review and manage your shopping cart items
             </SheetDescription>
           </SheetHeader>
-          
-          <div className="flex-1 overflow-auto py-4 space-y-4">
+
+          <div className="flex-1 space-y-4 overflow-auto py-4">
             {cartItems.map((item) => (
-              <div key={item.id} className="flex justify-between items-center gap-4">
+              <div
+                key={item.id}
+                className="flex items-center justify-between gap-4"
+              >
                 <div className="space-y-1">
                   <h3 className="font-medium">{item.name}</h3>
                   <p className="text-sm">${item.price.toFixed(2)}</p>
                 </div>
-                
+
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1">
+                  <div className="flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1">
                     <Button
                       variant="ghost"
                       size="icon"
@@ -72,7 +83,7 @@ export default function Cart(): JSX.Element {
                       <Plus className="h-3 w-3" />
                     </Button>
                   </div>
-                  
+
                   <Button
                     variant="ghost"
                     size="icon"
@@ -86,12 +97,12 @@ export default function Cart(): JSX.Element {
             ))}
           </div>
 
-          <div className="mt-auto border-t pt-4 space-y-4">
+          <div className="mt-auto space-y-4 border-t pt-4">
             <div className="flex justify-between font-bold">
               <span>Total:</span>
               <span>${getCartTotal().toFixed(2)}</span>
             </div>
-            
+
             <Button
               onClick={clearCart}
               variant="destructive"
@@ -99,7 +110,7 @@ export default function Cart(): JSX.Element {
             >
               Clear Cart
             </Button>
-            
+
             <SheetFooter>
               <SheetClose asChild>
                 <Button className="w-full">Continue Shopping</Button>
@@ -109,5 +120,5 @@ export default function Cart(): JSX.Element {
         </SheetContent>
       </Sheet>
     </div>
-  )
+  );
 }
