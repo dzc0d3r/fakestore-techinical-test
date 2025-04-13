@@ -44,6 +44,9 @@ const checkRole = useCallback(async (token: string) => {
       method: "POST",
       headers: {
         "Accept": "application/json",
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },

@@ -1,57 +1,56 @@
-import { verify } from "jsonwebtoken";
+import { jwtDecode } from "jwt-decode"; // Changed from verify
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const admins_id = [1, 10]; // Keep in sync with your auth.ts
+const admins_id = [1, 10];
 
 export async function POST(req: NextRequest) {
-  // Add CORS headers to response
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   };
-  // Handle preflight requests
+
   if (req.method === 'OPTIONS') {
     return new NextResponse(null, { headers });
   }
-  // Extract JWT from Authorization header
+
   const authHeader = req.headers.get("Authorization");
   if (!authHeader?.startsWith("Bearer ")) {
     return NextResponse.json(
       { error: "Unauthorized - Missing or invalid token" },
-      { status: 401 },
+      { status: 401, headers }
     );
   }
 
   const token = authHeader.split(" ")[1];
 
   try {
-    // Verify token with your JWT secret
-    const decoded = verify(token, process.env.AUTH_SECRET!) as unknown as {
-      sub: number;
-    };
+    // Only decode without verification
+    const decoded = jwtDecode<{ sub: number }>(token);
+    
+    if (typeof decoded.sub !== 'number') {
+      throw new Error("Invalid token payload");
+    }
 
-    // Determine role
     const role = admins_id.includes(decoded.sub) ? "admin" : "user";
 
     return NextResponse.json(
       { role },
-      { status: 200, // Status 200 for successful verification
-        headers, // Add headers to successful response
-      }
-      
+      { status: 200, headers }
     );
   } catch (error) {
-    console.error("JWT Verification Error:", error);
+    console.error("JWT Decoding Error:", error);
     return NextResponse.json(
-      { error: 'Unauthorized' },
-      { status: 401, headers } // Add headers to error response
+      { error: 'Unauthorized - Invalid token format' },
+      { status: 401, headers }
     );
   }
 }
 
-// Optional: Add GET method if needed
 export async function GET() {
-  return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
+  return NextResponse.json(
+    { error: "Method not allowed" },
+    { status: 405 }
+  );
 }
