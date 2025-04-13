@@ -5,13 +5,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { useQueryClient } from "@tanstack/react-query";
 import { useProducts } from "api";
 import { Link } from "expo-router";
-import {
-  FlatList,
-  Image,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { FlatList, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const SkeletonCard = () => (
   <ThemedView style={styles.skeletonCard}>
@@ -25,7 +19,6 @@ const SkeletonCard = () => (
 );
 
 export default function HomeScreen() {
-  const queryClient = useQueryClient();
   const { data: products, isLoading, isError } = useProducts();
 
   return (

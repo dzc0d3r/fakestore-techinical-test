@@ -1,7 +1,6 @@
 import { login, LoginCredentials, LoginResponse } from "api";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
-import { jwtDecode } from "jwt-decode";
 import {
   createContext,
   useCallback,
@@ -19,22 +18,45 @@ type AuthContextType = {
   logout: () => Promise<void>;
 };
 
-const adminsID = [1, 10];
 const AuthContext = createContext<AuthContextType>({
   isAdmin: false,
   token: null,
   isLoading: true,
   login: async () => {},
-  logout: async () => {},
+  logout: async () => void {},
 });
 
 const TOKEN_KEY = "auth_token";
+const API_URL = process.env.EXPO_PUBLIC_API_URL; // Add to your .env
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  // check role at server level (api endpoint in web app)
+  const checkRole = useCallback(async (token: string) => {
+    try {
+      const response = await fetch(`${API_URL}/api/role`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) throw new Error("Role check failed");
+
+      const { role } = await response.json();
+      role === "admin" ? setIsAdmin(true) : setIsAdmin(false);
+    } catch (error) {
+      console.error("Role check failed:", error);
+      setIsAdmin(false);
+    }
+  }, []);
+
+  // Existing loadToken without changes
   const loadToken = useCallback(async () => {
     try {
       let storedToken = null;
@@ -59,23 +81,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     loadToken();
+    console.log(isAdmin);
   }, [loadToken]);
 
-  // In your handleLogin function within AuthProvider
+  // Add this useEffect to handle role checks
+  useEffect(() => {
+    if (token) {
+      checkRole(token);
+    } else {
+      setIsAdmin(false);
+    }
+  }, [token, checkRole]);
+
+  // Modified handleLogin to remove client-side role check
   const handleLogin = async (credentials: LoginCredentials) => {
     try {
       const response = await login(credentials);
-      const decodedToken: any = jwtDecode(response?.token);
-      const isAdmin = adminsID.includes(decodedToken?.sub);
-      setIsAdmin(isAdmin);
-      console.log("isAdmin", isAdmin);
 
       if (!response.token) {
-        // Throw error if no token received
         throw new Error(response.error || "Authentication failed");
       }
 
-      // Store token
+      // Store token (existing logic)
       if (Platform.OS === "web") {
         localStorage.setItem(TOKEN_KEY, response.token);
       } else {
@@ -86,10 +113,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return response;
     } catch (error) {
       console.error("Login failed", error);
-      throw error; // Make sure to re-throw the error
+      throw error;
     }
   };
 
+  // Existing logout without changes
   const handleLogout = async () => {
     try {
       setToken(null);

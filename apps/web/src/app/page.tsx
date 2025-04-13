@@ -29,8 +29,8 @@ function HeroSection(): JSX.Element {
   return (
     <section className="py-2">
       <div className="container mx-auto flex flex-col items-center justify-between px-4 lg:flex-row">
-        <div className="mb-8 flex flex-col items-center text-center lg:mb-0 lg:w-1/2 md:text-start md:items-start">
-          <h1 className="text-primary/90 text-3xl font-bold leading-tight md:text-5xl ">
+        <div className="mb-8 flex flex-col items-center text-center md:items-start md:text-start lg:mb-0 lg:w-1/2">
+          <h1 className="text-primary/90 text-3xl font-bold leading-tight md:text-5xl">
             Discover Your Style
           </h1>
           <p className="text-primary/60 mt-4 lg:text-lg">
