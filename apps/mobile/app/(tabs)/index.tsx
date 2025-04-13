@@ -1,11 +1,27 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
+import { Image, StyleSheet, Platform, FlatList, TouchableOpacity } from 'react-native';
+import { useQueryClient } from '@tanstack/react-query';
+import { Link } from 'expo-router';
+import { useProducts } from 'api';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { ProductCard } from '@/components/ProductCard';
+
+const SkeletonCard = () => (
+  <ThemedView style={styles.skeletonCard}>
+    <ThemedView style={[styles.skeletonImage, styles.skeleton]} />
+    <ThemedView style={styles.skeletonContent}>
+      <ThemedView style={[styles.skeletonLine, styles.skeleton]} />
+      <ThemedView style={[styles.skeletonLineShort, styles.skeleton]} />
+      <ThemedView style={[styles.skeletonLine, styles.skeleton]} />
+    </ThemedView>
+  </ThemedView>
+);
 
 export default function HomeScreen() {
+  const queryClient = useQueryClient();
+  const { data: products, isLoading, isError } = useProducts();
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -16,38 +32,44 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
+        <ThemedText type="title" style={styles.titleText}>Featured Products</ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+
+      {isError ? (
+        <ThemedView style={styles.errorContainer}>
+          <ThemedText type="title">Error loading products</ThemedText>
+        </ThemedView>
+      ) : (
+        <FlatList
+          data={isLoading ? Array(10).fill(null) : products}
+          renderItem={({ item }) =>
+            isLoading ? (
+              <SkeletonCard />
+            ) : (
+              <Link href={`/products/${item.id}`} asChild>
+                <TouchableOpacity activeOpacity={0.7}>
+                  <ProductCard product={item} />
+                </TouchableOpacity>
+              </Link>
+            )
+          }
+          keyExtractor={(_, index) => index.toString()}
+          scrollEnabled={false}
+          contentContainerStyle={styles.listContainer}
+          ListEmptyComponent={
+            !isLoading && (
+              <ThemedView style={styles.emptyContainer}>
+                <ThemedText>No products found</ThemedText>
+              </ThemedView>
+            )
+          }
+        />
+      )}
+
+      <ThemedView style={styles.exploreContainer}>
+        <ThemedText type="subtitle">Looking for more?</ThemedText>
         <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+          Tap the Explore tab to discover additional products and categories.
         </ThemedText>
       </ThemedView>
     </ParallaxScrollView>
@@ -59,10 +81,37 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+    marginBottom: 16,
+    paddingHorizontal: 16,
+    fontSize: 8,
   },
-  stepContainer: {
-    gap: 8,
+  titleText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
     marginBottom: 8,
+  },
+  listContainer: {
+    paddingHorizontal: 16,
+    gap: 12,
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+    backgroundColor: '#ff000020',
+  },
+  emptyContainer: {
+    padding: 16,
+    alignItems: 'center',
+  },
+  exploreContainer: {
+    marginTop: 24,
+    gap: 8,
+    padding: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#00000020',
   },
   reactLogo: {
     height: 178,
@@ -70,5 +119,34 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  skeletonCard: {
+    flexDirection: 'row',
+    borderRadius: 8,
+    padding: 12,
+    gap: 12,
+    marginBottom: 12,
+  },
+  skeletonImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 4,
+  },
+  skeletonContent: {
+    flex: 1,
+    gap: 6,
+  },
+  skeletonLine: {
+    height: 16,
+    borderRadius: 4,
+    width: '80%',
+  },
+  skeletonLineShort: {
+    height: 16,
+    borderRadius: 4,
+    width: '60%',
+  },
+  skeleton: {
+    backgroundColor: '#e1e4e8',
   },
 });
