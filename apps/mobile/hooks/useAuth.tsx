@@ -34,27 +34,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  const checkRole = useCallback(async (token: string) => {
+    try {
+      console.log("[DEBUG] API_URL:", API_URL);
+      const response = await fetch(`${API_URL}/api/role`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-const checkRole = useCallback(async (token: string) => {
-  try {
-    console.log('[DEBUG] API_URL:', API_URL);
-    const response = await fetch(`${API_URL}/api/role`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      console.log("[DEBUG] Response status:", response.status);
+      if (!response.ok) throw new Error("Role check failed");
 
-    console.log('[DEBUG] Response status:', response.status);
-    if (!response.ok) throw new Error("Role check failed");
-    
-    const { role } = await response.json();
-    setIsAdmin(role === "admin");
-  } catch (error) {
-    console.error("Role check failed:", error);
-    setIsAdmin(false);
-  }
-}, []);
+      const { role } = await response.json();
+      setIsAdmin(role === "admin");
+    } catch (error) {
+      console.error("Role check failed:", error);
+      setIsAdmin(false);
+    }
+  }, []);
 
   // Existing loadToken without changes
   const loadToken = useCallback(async () => {

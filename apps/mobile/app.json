@@ -21,9 +21,6 @@
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png",
-      "headers": {
-        "Access-Control-Allow-Origin": "*"
-      }
     },
     "plugins": [
       "expo-router",
