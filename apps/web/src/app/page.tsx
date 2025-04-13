@@ -24,7 +24,7 @@ export default function Home(): JSX.Element {
   );
 }
 
-export function HeroSection(): JSX.Element {
+function HeroSection(): JSX.Element {
   return (
     <section className="py-2">
         <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between">
