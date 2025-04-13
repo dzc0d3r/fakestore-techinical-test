@@ -34,26 +34,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // check role at server level (api endpoint in web app)
+
 const checkRole = useCallback(async (token: string) => {
   try {
-    console.log('[DEBUG] API_URL:', API_URL); // Add this
-    console.log('[DEBUG] Token:', token); // Add this
-    
+    console.log('[DEBUG] API_URL:', API_URL);
     const response = await fetch(`${API_URL}/api/role`, {
       method: "POST",
       headers: {
-        "Accept": "application/json",
-        "Access-Control-Allow-Origin" : "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
     });
 
-    console.log('[DEBUG] Response status:', response.status); // Add this
-    // ... rest of your existing code ...
+    console.log('[DEBUG] Response status:', response.status);
+    if (!response.ok) throw new Error("Role check failed");
+    
+    const { role } = await response.json();
+    setIsAdmin(role === "admin");
   } catch (error) {
     console.error("Role check failed:", error);
     setIsAdmin(false);

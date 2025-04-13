@@ -7,13 +7,19 @@ const admins_id = [1, 10];
 export async function POST(req: NextRequest) {
   const headers = {
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Content-Type': 'application/json',
   };
 
+  // Handle preflight request
   if (req.method === 'OPTIONS') {
-    return new NextResponse(null, { headers });
-  }
+    return new NextResponse(null, {
+      status: 204,
+      headers: {
+        ...headers,
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      }
+  });
 
   const authHeader = req.headers.get("Authorization");
   if (!authHeader?.startsWith("Bearer ")) {
