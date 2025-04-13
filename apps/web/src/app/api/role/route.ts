@@ -5,6 +5,16 @@ import type { NextRequest } from "next/server";
 const admins_id = [1, 10]; // Keep in sync with your auth.ts
 
 export async function POST(req: NextRequest) {
+  // Add CORS headers to response
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  };
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return new NextResponse(null, { headers });
+  }
   // Extract JWT from Authorization header
   const authHeader = req.headers.get("Authorization");
   if (!authHeader?.startsWith("Bearer ")) {
@@ -25,12 +35,18 @@ export async function POST(req: NextRequest) {
     // Determine role
     const role = admins_id.includes(decoded.sub) ? "admin" : "user";
 
-    return NextResponse.json({ role });
+    return NextResponse.json(
+      { role },
+      { status: 200, // Status 200 for successful verification
+        headers, // Add headers to successful response
+      }
+      
+    );
   } catch (error) {
     console.error("JWT Verification Error:", error);
     return NextResponse.json(
-      { error: "Unauthorized - Invalid token" },
-      { status: 401 },
+      { error: 'Unauthorized' },
+      { status: 401, headers } // Add headers to error response
     );
   }
 }
