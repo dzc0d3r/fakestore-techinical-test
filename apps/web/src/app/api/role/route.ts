@@ -3,24 +3,11 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const admins_id = [1, 10];
-
-export async function POST(req: NextRequest) {
-  const headers = {
+const headers = {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
-  };
-
-  // Handle preflight request
-  if (req.method === 'OPTIONS') {
-    return new NextResponse(null, {
-      status: 200,
-      headers: {
-        ...headers,
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      }
-    });
-  }
+};
+export async function POST(req: NextRequest) {
 
   const authHeader = req.headers.get("Authorization");
   if (!authHeader?.startsWith("Bearer ")) {
@@ -60,4 +47,14 @@ export async function GET() {
     { error: "Method not allowed" },
     { status: 405 }
   );
+}
+export async function OPTIONS() {
+  return new NextResponse(null, {
+      status: 200,
+      headers: {
+        ...headers,
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      }
+    });
 }
