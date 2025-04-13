@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
   // Handle preflight request
   if (req.method === 'OPTIONS') {
     return new NextResponse(null, {
-      status: 204,
+      status: 200,
       headers: {
         ...headers,
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
