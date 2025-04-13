@@ -1,0 +1,684 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Products > renders error state correctly 1`] = `
+<div>
+  <div
+    class="p-4 text-red-500"
+  >
+    Error: 
+    Failed to load products
+  </div>
+</div>
+`;
+
+exports[`Products > renders loading state correctly 1`] = `
+<div>
+  <div
+    class="flex flex-col relative group"
+  >
+    <div
+      class="h-96 flex flex-col p-5 rounded hover:scale-105 transition-transform ease-out duration-200"
+    >
+      <div
+        class="absolute top-0 z-10"
+      >
+        <div
+          class="h-8 w-8 rounded-full"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="relative h-72 max-h-72 mb-4"
+      >
+        <div
+          class="h-full w-full rounded-lg"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="font-semibold flex items-center justify-between mt-4 mb-1"
+      >
+        <div
+          class="h-4 w-32"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-4 w-12"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="space-y-1"
+      >
+        <div
+          class="h-3 w-full"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-3 w-4/5"
+          data-testid="skeleton"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col relative group"
+  >
+    <div
+      class="h-96 flex flex-col p-5 rounded hover:scale-105 transition-transform ease-out duration-200"
+    >
+      <div
+        class="absolute top-0 z-10"
+      >
+        <div
+          class="h-8 w-8 rounded-full"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="relative h-72 max-h-72 mb-4"
+      >
+        <div
+          class="h-full w-full rounded-lg"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="font-semibold flex items-center justify-between mt-4 mb-1"
+      >
+        <div
+          class="h-4 w-32"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-4 w-12"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="space-y-1"
+      >
+        <div
+          class="h-3 w-full"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-3 w-4/5"
+          data-testid="skeleton"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col relative group"
+  >
+    <div
+      class="h-96 flex flex-col p-5 rounded hover:scale-105 transition-transform ease-out duration-200"
+    >
+      <div
+        class="absolute top-0 z-10"
+      >
+        <div
+          class="h-8 w-8 rounded-full"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="relative h-72 max-h-72 mb-4"
+      >
+        <div
+          class="h-full w-full rounded-lg"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="font-semibold flex items-center justify-between mt-4 mb-1"
+      >
+        <div
+          class="h-4 w-32"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-4 w-12"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="space-y-1"
+      >
+        <div
+          class="h-3 w-full"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-3 w-4/5"
+          data-testid="skeleton"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col relative group"
+  >
+    <div
+      class="h-96 flex flex-col p-5 rounded hover:scale-105 transition-transform ease-out duration-200"
+    >
+      <div
+        class="absolute top-0 z-10"
+      >
+        <div
+          class="h-8 w-8 rounded-full"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="relative h-72 max-h-72 mb-4"
+      >
+        <div
+          class="h-full w-full rounded-lg"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="font-semibold flex items-center justify-between mt-4 mb-1"
+      >
+        <div
+          class="h-4 w-32"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-4 w-12"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="space-y-1"
+      >
+        <div
+          class="h-3 w-full"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-3 w-4/5"
+          data-testid="skeleton"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col relative group"
+  >
+    <div
+      class="h-96 flex flex-col p-5 rounded hover:scale-105 transition-transform ease-out duration-200"
+    >
+      <div
+        class="absolute top-0 z-10"
+      >
+        <div
+          class="h-8 w-8 rounded-full"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="relative h-72 max-h-72 mb-4"
+      >
+        <div
+          class="h-full w-full rounded-lg"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="font-semibold flex items-center justify-between mt-4 mb-1"
+      >
+        <div
+          class="h-4 w-32"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-4 w-12"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="space-y-1"
+      >
+        <div
+          class="h-3 w-full"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-3 w-4/5"
+          data-testid="skeleton"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col relative group"
+  >
+    <div
+      class="h-96 flex flex-col p-5 rounded hover:scale-105 transition-transform ease-out duration-200"
+    >
+      <div
+        class="absolute top-0 z-10"
+      >
+        <div
+          class="h-8 w-8 rounded-full"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="relative h-72 max-h-72 mb-4"
+      >
+        <div
+          class="h-full w-full rounded-lg"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="font-semibold flex items-center justify-between mt-4 mb-1"
+      >
+        <div
+          class="h-4 w-32"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-4 w-12"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="space-y-1"
+      >
+        <div
+          class="h-3 w-full"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-3 w-4/5"
+          data-testid="skeleton"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col relative group"
+  >
+    <div
+      class="h-96 flex flex-col p-5 rounded hover:scale-105 transition-transform ease-out duration-200"
+    >
+      <div
+        class="absolute top-0 z-10"
+      >
+        <div
+          class="h-8 w-8 rounded-full"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="relative h-72 max-h-72 mb-4"
+      >
+        <div
+          class="h-full w-full rounded-lg"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="font-semibold flex items-center justify-between mt-4 mb-1"
+      >
+        <div
+          class="h-4 w-32"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-4 w-12"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="space-y-1"
+      >
+        <div
+          class="h-3 w-full"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-3 w-4/5"
+          data-testid="skeleton"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col relative group"
+  >
+    <div
+      class="h-96 flex flex-col p-5 rounded hover:scale-105 transition-transform ease-out duration-200"
+    >
+      <div
+        class="absolute top-0 z-10"
+      >
+        <div
+          class="h-8 w-8 rounded-full"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="relative h-72 max-h-72 mb-4"
+      >
+        <div
+          class="h-full w-full rounded-lg"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="font-semibold flex items-center justify-between mt-4 mb-1"
+      >
+        <div
+          class="h-4 w-32"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-4 w-12"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="space-y-1"
+      >
+        <div
+          class="h-3 w-full"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-3 w-4/5"
+          data-testid="skeleton"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col relative group"
+  >
+    <div
+      class="h-96 flex flex-col p-5 rounded hover:scale-105 transition-transform ease-out duration-200"
+    >
+      <div
+        class="absolute top-0 z-10"
+      >
+        <div
+          class="h-8 w-8 rounded-full"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="relative h-72 max-h-72 mb-4"
+      >
+        <div
+          class="h-full w-full rounded-lg"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="font-semibold flex items-center justify-between mt-4 mb-1"
+      >
+        <div
+          class="h-4 w-32"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-4 w-12"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="space-y-1"
+      >
+        <div
+          class="h-3 w-full"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-3 w-4/5"
+          data-testid="skeleton"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col relative group"
+  >
+    <div
+      class="h-96 flex flex-col p-5 rounded hover:scale-105 transition-transform ease-out duration-200"
+    >
+      <div
+        class="absolute top-0 z-10"
+      >
+        <div
+          class="h-8 w-8 rounded-full"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="relative h-72 max-h-72 mb-4"
+      >
+        <div
+          class="h-full w-full rounded-lg"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="font-semibold flex items-center justify-between mt-4 mb-1"
+      >
+        <div
+          class="h-4 w-32"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-4 w-12"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="space-y-1"
+      >
+        <div
+          class="h-3 w-full"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-3 w-4/5"
+          data-testid="skeleton"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col relative group"
+  >
+    <div
+      class="h-96 flex flex-col p-5 rounded hover:scale-105 transition-transform ease-out duration-200"
+    >
+      <div
+        class="absolute top-0 z-10"
+      >
+        <div
+          class="h-8 w-8 rounded-full"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="relative h-72 max-h-72 mb-4"
+      >
+        <div
+          class="h-full w-full rounded-lg"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="font-semibold flex items-center justify-between mt-4 mb-1"
+      >
+        <div
+          class="h-4 w-32"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-4 w-12"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="space-y-1"
+      >
+        <div
+          class="h-3 w-full"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-3 w-4/5"
+          data-testid="skeleton"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col relative group"
+  >
+    <div
+      class="h-96 flex flex-col p-5 rounded hover:scale-105 transition-transform ease-out duration-200"
+    >
+      <div
+        class="absolute top-0 z-10"
+      >
+        <div
+          class="h-8 w-8 rounded-full"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="relative h-72 max-h-72 mb-4"
+      >
+        <div
+          class="h-full w-full rounded-lg"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="font-semibold flex items-center justify-between mt-4 mb-1"
+      >
+        <div
+          class="h-4 w-32"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-4 w-12"
+          data-testid="skeleton"
+        />
+      </div>
+      <div
+        class="space-y-1"
+      >
+        <div
+          class="h-3 w-full"
+          data-testid="skeleton"
+        />
+        <div
+          class="h-3 w-4/5"
+          data-testid="skeleton"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Products > renders products correctly 1`] = `
+<div>
+  <div
+    class="flex flex-col relative"
+  >
+    <div
+      class="h-96 flex flex-col p-5 group rounded hover:scale-105 transition-transform ease-out duration-200 "
+    >
+      <div
+        class="absolute top-0 z-10"
+      />
+      <a
+        href="/products/1"
+      >
+        <div
+          class="relative h-72 max-h-72"
+        >
+          <img
+            alt="Product 1"
+            class="absolute z-auto object-contain duration-700 ease-in-out group-hover:opacity-75 scale-100 blur-2xl grayscale}"
+            data-nimg="fill"
+            decoding="async"
+            src=""
+            style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+          />
+        </div>
+        <div
+          class="font-semibold flex items-center justify-between mt-4 mb-1"
+        >
+          <p
+            class="w-44 truncate"
+          >
+            Product 1
+          </p>
+          <p>
+            $
+            100
+          </p>
+        </div>
+        <p
+          class="italic text-xs mx-w-58 line-clamp-2 text-gray-600"
+        />
+      </a>
+    </div>
+  </div>
+  <div
+    class="flex flex-col relative"
+  >
+    <div
+      class="h-96 flex flex-col p-5 group rounded hover:scale-105 transition-transform ease-out duration-200 "
+    >
+      <div
+        class="absolute top-0 z-10"
+      />
+      <a
+        href="/products/2"
+      >
+        <div
+          class="relative h-72 max-h-72"
+        >
+          <img
+            alt="Product 2"
+            class="absolute z-auto object-contain duration-700 ease-in-out group-hover:opacity-75 scale-100 blur-2xl grayscale}"
+            data-nimg="fill"
+            decoding="async"
+            src=""
+            style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+          />
+        </div>
+        <div
+          class="font-semibold flex items-center justify-between mt-4 mb-1"
+        >
+          <p
+            class="w-44 truncate"
+          >
+            Product 2
+          </p>
+          <p>
+            $
+            200
+          </p>
+        </div>
+        <p
+          class="italic text-xs mx-w-58 line-clamp-2 text-gray-600"
+        />
+      </a>
+    </div>
+  </div>
+</div>
+`;

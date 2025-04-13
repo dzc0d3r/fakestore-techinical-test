@@ -8,7 +8,7 @@ export default async function Page() {
   if (!session || session.user.role !== "admin") return redirect("/")
  
   return (
-    <div>
+    <div className="container min-h-screen mx-auto flex flex-col space-y-12 pb-44">
       <Products />
     </div>
   )

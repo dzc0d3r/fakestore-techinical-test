@@ -5,6 +5,7 @@ import NavBar from "@/components/navbar/nav-bar";
 import { Slide, ToastContainer } from "react-toastify";
 import { CartProvider } from "@/providers/cart-provider"
 import {ReactQueryProvider} from "@/providers/reac-query-provider"
+import { Footer } from "@/components/footer"
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css"
 
@@ -40,6 +41,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionProvider>
+          <ReactQueryProvider>
           <CartProvider>
           <ToastContainer
                     autoClose={3000}
@@ -53,13 +55,16 @@ export default function RootLayout({
                     toastClassName=' p-3 space-x-2 w-full'
                     transition={Slide}
                 />
+          
+        
           <NavBar />
-        <ReactQueryProvider>
           {children}
           {login}
           {signup}
-         </ReactQueryProvider>
+          <Footer />
+         
          </CartProvider>
+         </ReactQueryProvider>
         </SessionProvider>
       </body>
     </html>

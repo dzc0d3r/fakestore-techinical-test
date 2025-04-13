@@ -22,7 +22,7 @@ async function ProductPage({ params: { id } }: ProductPageProps): Promise<JSX.El
       <main className="container mx-auto mt-5">
         <div className="relative max-w-5xl flex flex-col md:flex-row items-center justify-center gap-8 px-4 mt-15 pb-5">
         <ProductImage product={product} />
-          <div className="absolute right-0 z-10">
+          <div className="absolute top-0 right-0 z-10">
             {session?.user.role === "admin" && (
                 <div className="flex flex-row justify-end gap-1 mb-5">
                  <Link href={`/admin?product=${product.id}`}>

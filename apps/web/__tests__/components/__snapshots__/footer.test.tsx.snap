@@ -1,0 +1,131 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Footer > should match snapshot 1`] = `
+<div>
+  <footer
+    class="bg-gray-800 text-white py-12"
+  >
+    <div
+      class="container mx-auto px-4"
+    >
+      <div
+        class="grid grid-cols-1 md:grid-cols-4 gap-8"
+      >
+        <div
+          class="space-y-4"
+        >
+          <h3
+            class="text-xl font-bold"
+          >
+            Company
+          </h3>
+          <ul
+            class="space-y-2"
+          >
+            <li>
+              <a
+                class="hover:text-gray-300"
+                href="/about"
+              >
+                About Us
+              </a>
+            </li>
+            <li>
+              <a
+                class="hover:text-gray-300"
+                href="/privacy"
+              >
+                Privacy Policy
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="space-y-4"
+        >
+          <h3
+            class="text-xl font-bold"
+          >
+            Shop
+          </h3>
+          <ul
+            class="space-y-2"
+          >
+            <li>
+              <a
+                class="hover:text-gray-300"
+                href="/products"
+              >
+                All Products
+              </a>
+            </li>
+            <li>
+              <a
+                class="hover:text-gray-300"
+                href="/profile"
+              >
+                My Account
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="space-y-4"
+        >
+          <h3
+            class="text-xl font-bold"
+          >
+            Contact
+          </h3>
+          <ul
+            class="space-y-2"
+          >
+            <li>
+              Email: support@example.com
+            </li>
+            <li>
+              Phone: (123) 456-7890
+            </li>
+          </ul>
+        </div>
+        <div
+          class="space-y-4"
+        >
+          <h3
+            class="text-xl font-bold"
+          >
+            Newsletter
+          </h3>
+          <p
+            class="text-gray-300"
+          >
+            Subscribe to our newsletter for updates
+          </p>
+          <div
+            class="flex gap-2"
+          >
+            <input
+              class="flex h-9 w-full rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-gray-800 border-gray-700"
+              placeholder="Your email"
+            />
+            <button
+              class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2"
+            >
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400"
+      >
+        <p>
+          © 
+          2025
+           Weasydoo. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+</div>
+`;

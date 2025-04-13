@@ -3,7 +3,6 @@ import { toast } from "react-toastify"
 import { useSearchParams } from 'next/navigation'
 import { 
   useProducts,
-  useProduct,
   useCreateProduct,
   useUpdateProduct,
   useDeleteProduct,
@@ -134,6 +133,7 @@ export default function Products() {
         ...editingProduct,
         ...values
       })
+      toast.success("Product updated successfully")
       setEditModalOpen(false)
       setEditingProduct(null)
     } catch (err) {
@@ -145,12 +145,18 @@ export default function Products() {
     try {
       await remove.mutateAsync(id)
       if (selectedId === id) setSelectedId(null)
+      toast.success(`Successfully deleted product `)
     } catch (err) {
       console.error('Delete error:', err)
     }
   }
 
-  if (error) return <div className="p-4 text-red-500">Error: {error.message}</div>
+  if (error) {
+    return <div className="container flex flex-col items-center justify-center min-h-screen mx-auto p-4">
+      <h1 className="text-red-500 font-bold text-3xl">Error: {error.message}</h1>
+      <p className="text-lg">Check your connection and try to refresh the page</p>
+    </div> 
+  }
 
   return (
     <div className="p-4 space-y-6">

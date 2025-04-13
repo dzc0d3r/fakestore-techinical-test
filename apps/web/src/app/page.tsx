@@ -28,11 +28,11 @@ export function HeroSection(): JSX.Element {
   return (
     <section className="py-2">
         <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between">
-            <div className="lg:w-1/2 text-center lg:text-left mb-8 lg:mb-0">
-                <h1 className="text-4xl md:text-5xl font-bold text-primary/90 leading-tight">Discover Your Style</h1>
-                <p className="mt-4 text-primary/60 text-lg">Find the perfect outfit for any occasion with our latest collection. 
-            Whether you&apos;re dressing up for a special event or keeping it casual,
-            we have the styles you need to look and feel your best.any occasion with our latest collection.</p>
+            <div className="lg:w-1/2 flex text-center items-center flex-col lg:text-left mb-8 lg:mb-0">
+                <h1 className="text-3xl md:text-5xl font-bold text-primary/90 leading-tight">Discover Your Style</h1>
+                <p className="mt-4 text-primary/60  lg:text-lg">Discover the perfect pick for every moment — from stunning outfits and elegant jewelry to the latest electronics.<br/>
+Whether you&apos;re dressing up, upgrading your tech, or finding a standout gift, our collection has everything you need to look, feel, and live your best.
+            </p>
                 <Link className="mt-5  flex flex-row items-center" href="/products">
                   <Button className="py-7 flex flex-row  gap-7 font-medium text-xl" size="default">Shop Now <Store/>
                   </Button>

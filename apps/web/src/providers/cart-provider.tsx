@@ -15,6 +15,8 @@ export interface CartContextValue {
   removeFromCart: (item: CartItem) => void;
   clearCart: () => void;
   getCartTotal: () => number;
+  deleteFromCart: (itemId: number) => void;
+
 }
 
 interface CartProviderProps {
@@ -69,6 +71,9 @@ export function CartProvider ({ children } : CartProviderProps): React.JSX.Eleme
   const getCartTotal = (): number => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
+  const deleteFromCart = (itemId: number): void => {
+  setCartItems(cartItems.filter((cartItem) => cartItem.id !== itemId));
+};
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -91,6 +96,7 @@ export function CartProvider ({ children } : CartProviderProps): React.JSX.Eleme
         removeFromCart,
         clearCart,
         getCartTotal,
+        deleteFromCart
         }
       }
     >
