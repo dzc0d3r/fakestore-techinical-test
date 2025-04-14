@@ -1,11 +1,10 @@
 # API Reference
 
 ## Shared API Client
-The `@weasydoo/api` package provides a type-safe client for interacting with the e-commerce API.
+The `api` package provides a type-safe client for interacting with the e-commerce API.
 
 ### Key Features
 - Automatic type inference
-- Request/response validation with Zod
 - Error handling utilities
 
 ### Example Usage

@@ -126,8 +126,11 @@ Our documentation is now available via GitHub Pages:
 ```
 
 ## 🚧 Improvements (Future Roadmap)
+### 1. Code refactoring
+For e.g in web app, in admin page we use a `products` components living under `apps/admin/_components/products.tsx` but it's a big component and need to be refactored and breaking it into smaller components for a better code readability and structure.
+This apply for the admin products component in the mobile app.
 
-### 1. Documentation App
+### 2. Documentation App
 ```bash
 apps/
   └── docs/       # Add Nextra-powered documentation
