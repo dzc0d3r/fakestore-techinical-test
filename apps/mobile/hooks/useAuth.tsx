@@ -4,20 +4,21 @@ import * as SecureStore from "expo-secure-store";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { Platform } from "react-native";
 
+
 type AuthContextType = {
   isAdmin: boolean;
   token: string | null;
   isLoading: boolean;
   login: (credentials: LoginCredentials) => Promise<LoginResponse>;
   logout: () => Promise<void>;
-  checkRole: () => Promise<void>;
+  checkRole: (token: string | null) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType>({
   isAdmin: false,
   token: null,
   isLoading: true,
-  login: async () => ({} as LoginResponse),
+  login: async () => ({}) as LoginResponse,
   logout: async () => {},
   checkRole: async () => {},
 });
@@ -29,7 +30,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [roleChecked, setRoleChecked] = useState(false);
 
   // Unified token storage management
   const storeToken = useCallback(async (token: string) => {
@@ -48,32 +48,29 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  const checkRole = useCallback(async (token: string) => {
+  const checkRole = useCallback(async (token: string | null) => {
+    if (!token) {
+      setIsAdmin(false);
+      return;
+    }
+
     try {
-      setRoleChecked(false);
       const response = await fetch(`${API_URL}/api/role`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      console.log("[DEBUG] Role check status:", response.status);
-      
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Role check failed:", errorData);
         throw new Error("Role check failed");
       }
 
       const { role } = await response.json();
-      console.log("[DEBUG] Received role:", role);
-      setIsAdmin(role === "admin");
+      setIsAdmin(role);
     } catch (error) {
       console.error("Role check failed:", error);
       setIsAdmin(false);
-    } finally {
-      setRoleChecked(true);
     }
-  }, [API_URL]); // Added API_URL as dependency
+  }, []);
 
   const loadToken = useCallback(async () => {
     try {
@@ -84,15 +81,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         storedToken = await SecureStore.getItemAsync(TOKEN_KEY);
       }
 
-      if (storedToken) {
-        setToken(storedToken);
-        // Wait for role check before redirecting
-        await checkRole(storedToken);
-        //router.replace("/");
-      }
+      setToken(storedToken);
+      await checkRole(storedToken);
     } catch (error) {
       console.error("Failed to load token", error);
       setToken(null);
+      setIsAdmin(false);
     } finally {
       setIsLoading(false);
     }
@@ -100,19 +94,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     loadToken();
-  }, [loadToken]);
+  }, []);
 
   const handleLogin = async (credentials: LoginCredentials) => {
     try {
       const response = await login(credentials);
-      
+
       if (!response.token) {
         throw new Error(response.error || "Authentication failed");
       }
 
       await storeToken(response.token);
       setToken(response.token);
-      // Ensure role check completes before proceeding
       await checkRole(response.token);
       return response;
     } catch (error) {
@@ -126,13 +119,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setToken(null);
       setIsAdmin(false);
       await removeToken();
-      //router.replace("/");
     } catch (error) {
       console.error("Failed to logout", error);
     }
   };
-
-  
 
   return (
     <AuthContext.Provider
@@ -142,7 +132,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         isLoading,
         login: handleLogin,
         logout: handleLogout,
-        checkRole: checkRole,
+        checkRole,
       }}
     >
       {children}

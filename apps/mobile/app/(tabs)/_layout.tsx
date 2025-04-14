@@ -10,7 +10,9 @@ import { Platform, View } from "react-native";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const { token, isLoading } = useAuth();
+  const { token, isLoading, isAdmin } = useAuth();
+  console.log("Current auth state:", { token, isAdmin, isLoading });
+  console.log(isAdmin);
 
   if (isLoading) {
     return <View style={{ flex: 1, backgroundColor: "#fff" }} />;
@@ -40,17 +42,29 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ color }: { color: string }) => (
             <IconSymbol size={28} name="house.fill" color={color} />
           ),
         }}
       />
+      {isAdmin && (
+        <Tabs.Screen
+          name="admin"
+          options={{
+            title: "Admin Area",
+            tabBarIcon: ({ color }: { color: string }) => (
+              <IconSymbol size={28} name="admin" color={color} />
+            ),
+          }}
+        />
+      )}
+
       <Tabs.Screen
-        name="explore"
+        name="cart"
         options={{
-          title: "Explore",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
+          title: "Cart",
+          tabBarIcon: ({ color }: { color: string }) => (
+            <IconSymbol size={28} name="cart" color={color} />
           ),
         }}
       />

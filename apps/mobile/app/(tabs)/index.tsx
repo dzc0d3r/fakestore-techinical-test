@@ -2,14 +2,20 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ProductCard } from "@/components/ProductCard";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { Ionicons } from "@expo/vector-icons";
 import { useQueryClient } from "@tanstack/react-query";
 import { useProducts } from "api";
+import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
-import { FlatList, Image, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 const CARD_WIDTH = (width - 40) / 2;
 
 const SkeletonCard = () => (
@@ -35,7 +41,7 @@ export default function HomeScreen() {
 
   const handleAddToCart = (productId: number) => {
     // Implement your add to cart logic here
-    console.log('Added product to cart:', productId);
+    console.log("Added product to cart:", productId);
   };
 
   return (
@@ -69,7 +75,9 @@ export default function HomeScreen() {
       {isError ? (
         <ThemedView style={styles.errorContainer}>
           <Ionicons name="sad-outline" size={48} color="#FF3B30" />
-          <ThemedText style={styles.errorText}>Failed to load products</ThemedText>
+          <ThemedText style={styles.errorText}>
+            Failed to load products
+          </ThemedText>
         </ThemedView>
       ) : (
         <FlatList
@@ -80,12 +88,12 @@ export default function HomeScreen() {
                 <SkeletonCard />
               ) : (
                 <Link href={`/products/${item.id}`} asChild>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     activeOpacity={0.9}
                     style={styles.productCard}
                   >
                     <LinearGradient
-                      colors={['#FFFFFF', '#F8F9FA']}
+                      colors={["#FFFFFF", "#F8F9FA"]}
                       style={styles.cardGradient}
                     >
                       <Image
@@ -94,8 +102,8 @@ export default function HomeScreen() {
                         resizeMode="contain"
                       />
                       <ThemedView style={styles.cardContent}>
-                        <ThemedText 
-                          numberOfLines={1} 
+                        <ThemedText
+                          numberOfLines={1}
                           style={styles.productTitle}
                         >
                           {item.title}
@@ -107,10 +115,10 @@ export default function HomeScreen() {
                           <ThemedView style={styles.ratingContainer}>
                             <Ionicons name="star" size={14} color="#FFD700" />
                             <ThemedText style={styles.ratingText}>
-                              {item.rating.rate} ({item.rating.count})
+                              {item.rating?.rate} ({item.rating?.count})
                             </ThemedText>
                           </ThemedView>
-                          <TouchableOpacity 
+                          <TouchableOpacity
                             style={styles.addToCartButton}
                             onPress={(e) => {
                               e.preventDefault();
@@ -144,11 +152,11 @@ export default function HomeScreen() {
 
       <FlatList
         horizontal
-        data={['Electronics', 'Fashion', 'Home', 'Beauty']}
+        data={["Electronics", "Fashion", "Home", "Beauty"]}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.categoryCard}>
             <LinearGradient
-              colors={['#007AFF', '#0040FF']}
+              colors={["#007AFF", "#0040FF"]}
               style={styles.categoryGradient}
             >
               <Ionicons name="phone-portrait" size={32} color="white" />
@@ -163,17 +171,17 @@ export default function HomeScreen() {
       {/* Explore Banner */}
       <TouchableOpacity style={styles.exploreBanner}>
         <LinearGradient
-          colors={['#FF2D55', '#FF9500']}
+          colors={["#FF2D55", "#FF9500"]}
           style={styles.bannerGradient}
         >
           <ThemedText style={styles.bannerTitle}>Summer Sale!</ThemedText>
           <ThemedText style={styles.bannerText}>
             Up to 50% off selected items
           </ThemedText>
-          <Ionicons 
-            name="arrow-forward-circle" 
-            size={32} 
-            color="white" 
+          <Ionicons
+            name="arrow-forward-circle"
+            size={32}
+            color="white"
             style={styles.bannerIcon}
           />
         </LinearGradient>
