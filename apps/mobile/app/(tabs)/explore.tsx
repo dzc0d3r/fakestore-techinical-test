@@ -5,8 +5,18 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Image, Platform, StyleSheet } from "react-native";
-
+import {useAuth} from "@/hooks/useAuth"
+import {useEffect} from "react"
+import {Redirect} from "expo-router"
 export default function TabTwoScreen() {
+  const {checkRole, token, isAdmin} = useAuth()
+
+
+  useEffect(() => {
+    checkRole(token)
+    console.log(isAdmin)
+  }, [])
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
