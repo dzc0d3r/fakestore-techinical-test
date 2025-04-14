@@ -3,7 +3,7 @@
 Welcome to the Weasydoo project documentation. This site serves as the central hub for all technical documentation related to the Weasydoo monorepo.
 
 ## Quick Links
-- [Getting Started](/https://github.com/dzc0d3r/fakestore-techinical-test/#-documentation)
+- [Getting Started](https://github.com/dzc0d3r/fakestore-techinical-test/#-documentation)
 - [API Reference](/fakestore-techinical-test/api-reference)
 - [Contributing Guidelines](/fakestore-techinical-test/contributing)
 
