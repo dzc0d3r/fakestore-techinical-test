@@ -1,4 +1,5 @@
 ;
+
 // app/(tabs)/cart.tsx
 import { useCart } from "@/components/CartProvider";
 import { ThemedText } from "@/components/ThemedText";
@@ -6,6 +7,38 @@ import { ThemedView } from "@/components/ThemedView";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { FlatList, Image, StyleSheet, TouchableOpacity, View } from "react-native";
+
+
+;
+
+
+
+
+
+
+
+
+
+
+;
+
+
+
+
+
+
+
+
+
+
+;
+
+
+
+
+
+
+
 
 
 export default function CartScreen() {
@@ -18,7 +51,7 @@ export default function CartScreen() {
       <View style={styles.itemDetails}>
         <ThemedText style={styles.itemName}>{item.name}</ThemedText>
         <ThemedText style={styles.itemPrice}>
-          ${item.price.toFixed(2)}
+          ${item.price?.toFixed(2)}
         </ThemedText>
         <View style={styles.quantityContainer}>
           <TouchableOpacity onPress={() => removeFromCart(item)}>
@@ -32,7 +65,7 @@ export default function CartScreen() {
       </View>
       <TouchableOpacity
         style={styles.deleteButton}
-        onPress={() => deleteFromCart(item.id)}
+        onPress={() => deleteFromCart(item?.id)}
       >
         <Ionicons name="trash" size={20} color="#FF3B30" />
       </TouchableOpacity>
@@ -51,7 +84,7 @@ export default function CartScreen() {
           <FlatList
             data={cartItems}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item.id?.toString()}
             contentContainerStyle={styles.listContent}
           />
           <ThemedView style={styles.totalContainer}>

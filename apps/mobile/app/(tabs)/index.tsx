@@ -1,19 +1,14 @@
+import { useCart } from "@/components/CartProvider";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ProductCard } from "@/components/ProductCard";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { Ionicons } from "@expo/vector-icons";
-import { useQueryClient } from "@tanstack/react-query";
-import { useProducts } from "api";
+import { useProducts , type Product} from "api";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
-import {
-  Dimensions,
-  FlatList,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { Dimensions, FlatList, Image, StyleSheet, TouchableOpacity } from "react-native";
+
 
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = (width - 40) / 2;
@@ -38,10 +33,15 @@ const SkeletonCard = () => (
 
 export default function HomeScreen() {
   const { data: products, isLoading, isError } = useProducts();
-
-  const handleAddToCart = (productId: number) => {
-    // Implement your add to cart logic here
-    console.log("Added product to cart:", productId);
+  const { addToCart } = useCart();
+  const handleAddToCart = (product: Product) => {
+    addToCart({
+      id: product.id,
+      name: product.title,
+      price: product.price,
+      quantity: 1,
+      image: product.image,
+    });
   };
 
   return (
@@ -122,7 +122,8 @@ export default function HomeScreen() {
                             style={styles.addToCartButton}
                             onPress={(e) => {
                               e.preventDefault();
-                              handleAddToCart(item.id);
+                              handleAddToCart(item);
+                              console.log(item)
                             }}
                           >
                             <Ionicons name="cart" size={16} color="#007AFF" />
@@ -193,29 +194,29 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   headerImage: {
     height: 300,
-    width: '100%',
+    width: "100%",
   },
   sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 20,
     marginTop: 24,
     marginBottom: 16,
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: '800',
+    fontWeight: "800",
     letterSpacing: -0.5,
   },
   seeAllButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
   },
   seeAllText: {
-    color: '#007AFF',
-    fontWeight: '500',
+    color: "#007AFF",
+    fontWeight: "500",
   },
   gridContainer: {
     gap: 10,
@@ -229,12 +230,11 @@ const styles = StyleSheet.create({
     width: CARD_WIDTH,
     flex: 1,
     marginBottom: 10,
-    
   },
   productCard: {
     borderRadius: 20,
-    overflow: 'hidden',
-    shadowColor: '#000',
+    overflow: "hidden",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
@@ -246,42 +246,42 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   productImage: {
-    width: '100%',
+    width: "100%",
     height: 150,
     marginBottom: 12,
   },
   cardContent: {
     paddingHorizontal: 8,
     borderRadius: 10,
-    padding: 10
+    padding: 10,
   },
   productTitle: {
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 4,
   },
   productPrice: {
     fontSize: 16,
-    fontWeight: '700',
-    color: '#007AFF',
+    fontWeight: "700",
+    color: "#007AFF",
     marginBottom: 8,
   },
   bottomRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
   },
   ratingText: {
     fontSize: 12,
-    color: '#8E8E93',
+    color: "#8E8E93",
   },
   addToCartButton: {
-    backgroundColor: '#007AFF20',
+    backgroundColor: "#007AFF20",
     padding: 6,
     borderRadius: 8,
   },
@@ -293,40 +293,40 @@ const styles = StyleSheet.create({
     width: 140,
     height: 140,
     borderRadius: 20,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   categoryGradient: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 16,
   },
   categoryText: {
-    color: 'white',
-    fontWeight: '600',
+    color: "white",
+    fontWeight: "600",
     marginTop: 8,
   },
   skeletonImage: {
-    width: '80%',
+    width: "80%",
     height: 150,
     borderRadius: 12,
     marginBottom: 12,
   },
   skeletonTitle: {
     height: 14,
-    width: '80%',
+    width: "80%",
     marginBottom: 4,
     borderRadius: 4,
   },
   skeletonPrice: {
     height: 16,
-    width: '40%',
+    width: "40%",
     marginBottom: 8,
     borderRadius: 4,
   },
   skeletonRating: {
     height: 12,
-    width: '50%',
+    width: "50%",
     borderRadius: 4,
   },
   skeletonButton: {
@@ -335,26 +335,26 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   skeleton: {
-    backgroundColor: '#E9ECEF',
+    backgroundColor: "#E9ECEF",
   },
   exploreBanner: {
     marginHorizontal: 20,
     marginTop: 24,
     borderRadius: 20,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   bannerGradient: {
     padding: 24,
-    alignItems: 'center',
+    alignItems: "center",
   },
   bannerTitle: {
-    color: 'white',
+    color: "white",
     fontSize: 24,
-    fontWeight: '800',
+    fontWeight: "800",
     marginBottom: 8,
   },
   bannerText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
     marginBottom: 12,
   },
@@ -363,13 +363,13 @@ const styles = StyleSheet.create({
   },
   errorContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 40,
     gap: 16,
   },
   errorText: {
-    color: '#FF3B30',
-    fontWeight: '500',
+    color: "#FF3B30",
+    fontWeight: "500",
   },
 });

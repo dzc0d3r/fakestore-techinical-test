@@ -2,17 +2,13 @@ import { useCart } from "@/components/CartProvider";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { Button } from "@/components/ui/Button";
+import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Ionicons } from "@expo/vector-icons";
 import { useProduct } from "api";
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack, useLocalSearchParams } from "expo-router";
-import {
-  ActivityIndicator,
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-} from "react-native";
+import { ActivityIndicator, Dimensions, Image, ScrollView, StyleSheet } from "react-native";
+
 
 const { width } = Dimensions.get("window");
 
@@ -74,9 +70,9 @@ export default function ProductScreen() {
 
       <ThemedView style={styles.details}>
         <Button
-          title="Add to Cart"
+          label="Add to Cart"
           onPress={handleAddToCart}
-          icon="cart"
+          icon={<IconSymbol size={28} name="cart" color={"white"} />}
           style={styles.button}
         />
         <ThemedText type="title" style={styles.title}>
