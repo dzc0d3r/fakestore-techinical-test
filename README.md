@@ -4,8 +4,24 @@
 [![Web: Next.js](https://img.shields.io/badge/Web-Next.js-000000?logo=next.js)](https://nextjs.org)
 [![Mobile: Expo](https://img.shields.io/badge/Mobile-Expo-4630EB?logo=expo)](https://expo.dev)
 [![Code Style: Prettier](https://img.shields.io/badge/Code%20Style-Prettier-ff69b4?logo=prettier)](https://prettier.io)
+[![Docs: GitHub Pages](https://img.shields.io/badge/Docs-GitHub%20Pages-222222?logo=github)](https://your-org.github.io/weasydoo)
 
 A high-performance e-commerce solution with feature parity across web (Next.js) and mobile (React Native/Expo). Built with modern architecture patterns and developer experience in mind.
+
+## 📚 Documentation
+
+Our documentation is now available via GitHub Pages:
+
+1. **View Online**: [https://your-org.github.io/weasydoo](https://your-org.github.io/weasydoo)
+2. **Local Development**:
+   ```bash
+   cd apps/docs
+   bundle exec jekyll serve
+   ```
+3. **Updating Docs**:
+   - Edit markdown files in `apps/docs/`
+   - Push changes to `main` branch
+   - GitHub Pages will automatically rebuild
 
 ## 🌟 Features
 - **Next.js Web App**: Auth, product CRUD, search/filter, responsive UI
@@ -69,17 +85,21 @@ A high-performance e-commerce solution with feature parity across web (Next.js) 
 
 2. **Run Web App**
    ```bash
-   pnpm dev:web
+   pnpm web:dev
    ```
 
 3. **Run Mobile App**
    ```bash
-   pnpm dev:mobile
+   pnpm mobile:dev
    ```
 
 4. **Build All Packages**
    ```bash
    pnpm build
+   ```
+4. **Run All Test**
+   ```bash
+   pnpm test
    ```
 
 ## 🤔 Why These Technologies?
