@@ -2,6 +2,7 @@ import { Footer } from "@/components/footer";
 import { render } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
+
 // Mock authentication functions
 vi.mock("@/auth", () => ({
   auth: vi.fn().mockResolvedValue({ user: { role: "user" } }),

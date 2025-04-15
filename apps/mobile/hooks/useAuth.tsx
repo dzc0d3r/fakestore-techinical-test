@@ -1,14 +1,9 @@
 import { login, LoginCredentials, LoginResponse } from "api";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { Platform } from "react-native";
+
 
 type AuthContextType = {
   isAdmin: boolean;
