@@ -9,7 +9,6 @@ import { Redirect, Tabs } from "expo-router";
 import React, { useEffect } from "react";
 import { Platform, View } from "react-native";
 
-
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const { token, isLoading, isAdmin, checkRole } = useAuth();

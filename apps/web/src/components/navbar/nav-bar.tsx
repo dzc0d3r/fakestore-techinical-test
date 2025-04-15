@@ -1,15 +1,27 @@
 import { auth, signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Logo from "@/public/logo.png";
-import { AlignLeft, CircleUser, LogOut, Search, Settings, Shield } from "lucide-react";
+import {
+  AlignLeft,
+  CircleUser,
+  LogOut,
+  Search,
+  Settings,
+  Shield,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Cart from "./cart";
 import LoginButton from "./login-button";
-
 
 export default async function NaVBar(): Promise<JSX.Element> {
   const session = await auth();

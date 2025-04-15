@@ -78,7 +78,9 @@ A high-performance e-commerce solution with feature parity across web (Next.js) 
    ```bash
    pnpm web:dev
    ```
+
 Or run each app seperately
+**IMPORTANT**: make sure api is built before running these scripts.
 
 4. **Run web app**
    ```bash

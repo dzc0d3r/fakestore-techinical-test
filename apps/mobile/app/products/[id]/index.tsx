@@ -7,8 +7,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { useProduct } from "api";
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { ActivityIndicator, Dimensions, Image, ScrollView, StyleSheet } from "react-native";
-
+import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 
 const { width } = Dimensions.get("window");
 

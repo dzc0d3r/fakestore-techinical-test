@@ -3,7 +3,13 @@ import { useAuth } from "@/hooks/useAuth";
 import { AntDesign } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Picker } from "@react-native-picker/picker";
-import { useCreateProduct, useDeleteProduct, useProducts, useUpdateProduct, type Product } from "api";
+import {
+  useCreateProduct,
+  useDeleteProduct,
+  useProducts,
+  useUpdateProduct,
+  type Product,
+} from "api";
 import { Redirect } from "expo-router";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";

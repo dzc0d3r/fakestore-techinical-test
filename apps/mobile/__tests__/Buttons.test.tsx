@@ -1,7 +1,7 @@
+import { Button } from "@/components/ui/Button";
 import { AntDesign } from "@expo/vector-icons";
 import React from "react";
 import renderer from "react-test-renderer";
-import { Button } from "@/components/ui/Button";
 
 describe("Button Component", () => {
   const mockPress = jest.fn();
@@ -35,7 +35,6 @@ describe("Button Component", () => {
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
-
 
   it("renders loading state correctly", () => {
     const tree = renderer
