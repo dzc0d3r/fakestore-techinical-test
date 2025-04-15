@@ -73,15 +73,18 @@ A high-performance e-commerce solution with feature parity across web (Next.js) 
    ```bash
    pnpm --filter api build
    ```
-
+Or
 3. **Run turbo dev**
    ```bash
    pnpm dev
    ```
 
-Or run each app seperately
-**IMPORTANT**: make sure api is built before running these scripts.
+Run each app seperately
 
+**IMPORTANT**: make sure api is built before running these scripts.
+```bash
+pnpm --filter api build
+```
 4. **Run web app**
    ```bash
    pnpm web:dev
