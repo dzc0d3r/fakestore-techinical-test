@@ -69,22 +69,31 @@ A high-performance e-commerce solution with feature parity across web (Next.js) 
    ```bash
    pnpm install
    ```
+2. **Build API**
+   ```bash
+   pnpm --filter api build
+   ```
 
-2. **Run Web App**
+3. **Run turbo dev**
    ```bash
    pnpm web:dev
    ```
+Or run each app seperately
 
-3. **Run Mobile App**
+4. **Run web app**
+   ```bash
+   pnpm web:dev
+   ```
+5. **Run Mobile App**
    ```bash
    pnpm mobile:dev
    ```
 
-4. **Build All Packages**
+. **Build All Packages**
    ```bash
    pnpm build
    ```
-4. **Run All Test**
+. **Run All Test**
    ```bash
    pnpm test
    ```
