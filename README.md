@@ -23,15 +23,10 @@ A high-performance e-commerce solution with feature parity across web (Next.js) 
    pnpm dev
    ```
 
-Visit: `http://localhost:3000` to see the web application.
-Visit: `http://localhost:8081` to see the mobile application (expo web).
+Visit: [localhost:3000](http://localhost:3000) to see the web application.
+Visit: [localhost:8081](http://localhost:8081) to see the mobile application (expo web).
 
 Or run each app seperately
-
-3. **Build API**
-   ```bash
-   pnpm --filter api build
-   ```
 
 **IMPORTANT**: make sure api is built before running these scripts.
    ```bash
