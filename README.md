@@ -8,6 +8,45 @@
 
 A high-performance e-commerce solution with feature parity across web (Next.js) and mobile (React Native/Expo). Built with modern architecture patterns and developer experience in mind.
 
+## 🚀 Getting Started
+
+1. **Install Dependencies**
+   ```bash
+   pnpm install
+   ```
+2. **Build API**
+   ```bash
+   pnpm --filter api build
+   ```
+Or
+3. **Run turbo dev**
+   ```bash
+   pnpm dev
+   ```
+Visit: `http://localhost:3000` to see the web application.
+Visit: `http://localhost:8081` to see the mobile application (expo web).
+
+Run each app seperately
+
+**IMPORTANT**: make sure api is built before running these scripts.
+```bash
+pnpm --filter api build
+```
+4. **Run web app**
+   ```bash
+   pnpm web:dev
+   ```
+5. **Run Mobile App**
+   ```bash
+   pnpm mobile:dev
+   ```
+
+. **Build All Packages**
+   ```bash
+   pnpm build
+   ```
+. **Run All Test**
+   ```bash
 ## 📚 Documentation
 
 ## 🌟 Features
@@ -63,43 +102,7 @@ A high-performance e-commerce solution with feature parity across web (Next.js) 
 └── turbo.json         # Build pipeline configuration
 ```
 
-## 🚀 Getting Started
 
-1. **Install Dependencies**
-   ```bash
-   pnpm install
-   ```
-2. **Build API**
-   ```bash
-   pnpm --filter api build
-   ```
-Or
-3. **Run turbo dev**
-   ```bash
-   pnpm dev
-   ```
-
-Run each app seperately
-
-**IMPORTANT**: make sure api is built before running these scripts.
-```bash
-pnpm --filter api build
-```
-4. **Run web app**
-   ```bash
-   pnpm web:dev
-   ```
-5. **Run Mobile App**
-   ```bash
-   pnpm mobile:dev
-   ```
-
-. **Build All Packages**
-   ```bash
-   pnpm build
-   ```
-. **Run All Test**
-   ```bash
    pnpm test
    ```
 

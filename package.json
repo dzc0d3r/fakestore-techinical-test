@@ -11,6 +11,7 @@
       "web:add": "pnpm --filter web run shadcn:add",
       "mobile:dev": "pnpm --filter mobile run start",
       "mobile:test": "pnpm --filter mobile run test",
+      "mobile:build": "pnpm --filter mobile run build",
       "format": "prettier --write \"**/*.{ts,tsx,js,jsx,md,mdx}\"",
       "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,md,mdx}\"",
       "test": "turbo test",
