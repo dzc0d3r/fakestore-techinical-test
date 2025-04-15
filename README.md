@@ -47,7 +47,9 @@ Or run each app seperately
    ```
 . **Run All Test**
    ```bash
-## 📚 Documentation
+   pnpm test
+   ```
+
 
 ## 🌟 Features
 - **Next.js Web App**: Auth, product CRUD, search/filter, responsive UI
@@ -103,9 +105,6 @@ Or run each app seperately
 ```
 
 
-   pnpm test
-   ```
-
 ## 🤔 Why These Technologies?
 
 | Choice                | Rationale                                                                 |
@@ -134,8 +133,7 @@ Or run each app seperately
 For e.g in web app, in admin page we use a `products` components living under `apps/admin/_components/products.tsx` but it's a big component and need to be refactored and breaking it into smaller components for a better code readability and structure.
 This apply for the admin products component in the mobile app.
 
-**BUG** in the mobile app.. RBAC is not set up in a correct way and admin route isn't protected.. need to refactor the code and fix the bug
-(as a side note .. for security reasons it's better to perform admin crud operations using the web app and keeping the mobile app for client users only )
+
 
 ### 2. Documentation App
 ```bash
