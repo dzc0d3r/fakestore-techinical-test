@@ -8,10 +8,13 @@
 
 A high-performance e-commerce solution with feature parity across web (Next.js) and mobile (React Native/Expo). Built with modern architecture patterns and developer experience in mind.
 
-## 🚀 Getting Started
 
-1. **Install Dependencies**
+## 🚀 Getting Started
+[Docs deployed to github pages](https://dzc0d3r.github.io/fakestore-techinical-test/)
+
+1. **Clone the repo and Install Dependencies**
    ```bash
+   git clone https://github.com/dzc0d3r/fakestore-techinical-test.git
    pnpm install
    ```
 
