@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ title, onMenuPress }) => {
         <TouchableOpacity onPress={onMenuPress} style={styles.iconButton}>
           <Ionicons name="menu" size={28} color="#000" />
         </TouchableOpacity>
-        <Text style={styles.title}>{title}</Text>
+
         {token ? (
           <TouchableOpacity onPress={logout} style={styles.iconButton}>
             <Ionicons name="log-out-outline" size={28} color="#000" />

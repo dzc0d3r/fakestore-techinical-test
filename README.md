@@ -164,4 +164,4 @@ packages/
 - **Analytics**: Shared tracking implementation
 
 ## 📄 License
-MIT © 2024 Weasydoo Team
+MIT © 2024 Weasydoo
