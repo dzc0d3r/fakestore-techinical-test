@@ -3,7 +3,6 @@ import { User } from "lucide-react";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-
 export const metadata: Metadata = {
   title: "Profile - WeasyDoo Store",
   description: "View your profile information",

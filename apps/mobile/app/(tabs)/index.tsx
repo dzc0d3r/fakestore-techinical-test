@@ -4,11 +4,16 @@ import { ProductCard } from "@/components/ProductCard";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { Ionicons } from "@expo/vector-icons";
-import { useProducts , type Product} from "api";
+import { useProducts, type Product } from "api";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
-import { Dimensions, FlatList, Image, StyleSheet, TouchableOpacity } from "react-native";
-
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = (width - 40) / 2;
@@ -123,7 +128,7 @@ export default function HomeScreen() {
                             onPress={(e) => {
                               e.preventDefault();
                               handleAddToCart(item);
-                              console.log(item)
+                              console.log(item);
                             }}
                           >
                             <Ionicons name="cart" size={16} color="#007AFF" />

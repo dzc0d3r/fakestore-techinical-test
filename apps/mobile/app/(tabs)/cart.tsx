@@ -1,45 +1,16 @@
-;
-
 // app/(tabs)/cart.tsx
 import { useCart } from "@/components/CartProvider";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { FlatList, Image, StyleSheet, TouchableOpacity, View } from "react-native";
-
-
-;
-
-
-
-
-
-
-
-
-
-
-;
-
-
-
-
-
-
-
-
-
-
-;
-
-
-
-
-
-
-
-
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function CartScreen() {
   const { cartItems, removeFromCart, addToCart, deleteFromCart, getCartTotal } =
