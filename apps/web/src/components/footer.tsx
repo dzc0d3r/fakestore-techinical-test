@@ -1,11 +1,8 @@
-import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
-
-export async function Footer() {
-  const session = await auth();
+export function Footer() {
   return (
     <footer className="bg-gray-800 py-12 text-white">
       <div className="container mx-auto px-4">
@@ -35,15 +32,9 @@ export async function Footer() {
                 </Link>
               </li>
               <li>
-                {session ? (
-                  <Link href="/profile" className="hover:text-gray-300">
-                    Profile
-                  </Link>
-                ) : (
-                  <Link href="/login" className="hover:text-gray-300">
-                    My Profile
-                  </Link>
-                )}
+                <Link href="/profile" className="hover:text-gray-300">
+                  My Account
+                </Link>
               </li>
             </ul>
           </div>

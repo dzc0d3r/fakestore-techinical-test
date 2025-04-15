@@ -1,8 +1,6 @@
 import { auth } from "@/auth";
 import { User } from "lucide-react";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
-
 
 export const metadata: Metadata = {
   title: "Profile - WeasyDoo Store",
@@ -12,7 +10,6 @@ export const metadata: Metadata = {
 export default async function ProfilePage() {
   // Mock user data - in a real app this would come from auth/session
   const session = await auth();
-  if (!session) redirect("/login");
 
   return (
     <div className="container mx-auto mt-10 flex min-h-screen gap-10 py-8">
