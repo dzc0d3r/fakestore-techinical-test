@@ -3,13 +3,13 @@
 exports[`Footer > should match snapshot 1`] = `
 <div>
   <footer
-    class="bg-gray-800 py-12 text-white"
+    class="bg-gray-800 text-white py-12"
   >
     <div
       class="container mx-auto px-4"
     >
       <div
-        class="grid grid-cols-1 gap-8 md:grid-cols-4"
+        class="grid grid-cols-1 md:grid-cols-4 gap-8"
       >
         <div
           class="space-y-4"
@@ -64,7 +64,7 @@ exports[`Footer > should match snapshot 1`] = `
                 class="hover:text-gray-300"
                 href="/profile"
               >
-                Profile
+                My Account
               </a>
             </li>
           </ul>
@@ -105,7 +105,7 @@ exports[`Footer > should match snapshot 1`] = `
             class="flex gap-2"
           >
             <input
-              class="file:text-foreground placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm border-gray-700 bg-gray-800"
+              class="flex h-9 w-full rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-gray-800 border-gray-700"
               placeholder="Your email"
             />
             <button
@@ -117,7 +117,7 @@ exports[`Footer > should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="mt-8 border-t border-gray-800 pt-8 text-center text-gray-400"
+        class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400"
       >
         <p>
           © 
