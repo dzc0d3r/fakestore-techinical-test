@@ -3,7 +3,7 @@
 exports[`NaVBar Snapshot > should render correctly and match snapshot 1`] = `
 <div>
   <header
-    class="sticky backdrop-blur-lg bg-white backdrop-filter  bg-opacity-80 top-0 shadow-sm flex h-16 items-center gap-4 px-4 md:px-6 z-50"
+    class="sticky top-0 z-50 flex h-16 items-center gap-4 bg-white bg-opacity-80 px-4 shadow-sm backdrop-blur-lg backdrop-filter md:px-6"
   >
     <nav
       class="hidden flex-col gap-2 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-2"
@@ -103,7 +103,7 @@ exports[`NaVBar Snapshot > should render correctly and match snapshot 1`] = `
             </span>
           </a>
           <div
-            class="grid gap-4 mt-5"
+            class="mt-5 grid gap-4"
           >
             <a
               class="text-primary/80 hover:text-foreground"
@@ -131,7 +131,7 @@ exports[`NaVBar Snapshot > should render correctly and match snapshot 1`] = `
           class="relative"
         >
           <svg
-            class="lucide lucide-search absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground"
+            class="lucide lucide-search text-muted-foreground absolute left-2.5 top-2.5 h-4 w-4"
             fill="none"
             height="24"
             stroke="currentColor"
@@ -205,11 +205,11 @@ exports[`NaVBar Snapshot > should render correctly and match snapshot 1`] = `
         <div>
           <div>
             <a
-              class="flex flex-row gap-2 lg:text-md w-full font-medium"
+              class="lg:text-md flex w-full flex-row gap-2 font-medium"
               href="/profile"
             >
               <svg
-                class="lucide lucide-settings  left-2"
+                class="lucide lucide-settings left-2"
                 fill="none"
                 height="24"
                 stroke="currentColor"
@@ -235,7 +235,7 @@ exports[`NaVBar Snapshot > should render correctly and match snapshot 1`] = `
           <div />
           <form>
             <button
-              class="w-full relative"
+              class="relative w-full"
               type="submit"
               variant="destructive"
             >
