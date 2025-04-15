@@ -76,7 +76,7 @@ A high-performance e-commerce solution with feature parity across web (Next.js) 
 
 3. **Run turbo dev**
    ```bash
-   pnpm web:dev
+   pnpm dev
    ```
 
 Or run each app seperately
