@@ -10,19 +10,6 @@ A high-performance e-commerce solution with feature parity across web (Next.js) 
 
 ## 📚 Documentation
 
-Our documentation is now available via GitHub Pages:
-
-1. **View Online**: [https://your-org.github.io/weasydoo](https://your-org.github.io/weasydoo)
-2. **Local Development**:
-   ```bash
-   cd apps/docs
-   bundle exec jekyll serve
-   ```
-3. **Updating Docs**:
-   - Edit markdown files in `apps/docs/`
-   - Push changes to `main` branch
-   - GitHub Pages will automatically rebuild
-
 ## 🌟 Features
 - **Next.js Web App**: Auth, product CRUD, search/filter, responsive UI
 - **Expo Mobile App**: Mirror web functionality with mobile-first UX
@@ -129,6 +116,9 @@ Our documentation is now available via GitHub Pages:
 ### 1. Code refactoring
 For e.g in web app, in admin page we use a `products` components living under `apps/admin/_components/products.tsx` but it's a big component and need to be refactored and breaking it into smaller components for a better code readability and structure.
 This apply for the admin products component in the mobile app.
+
+**BUG** in the mobile app.. RBAC is not set up in a correct way and admin route isn't protected.. need to refactor the code and fix the bug
+(as a side note .. for security reasons it's better to perform admin crud operations using the web app and keeping the mobile app for client users only )
 
 ### 2. Documentation App
 ```bash

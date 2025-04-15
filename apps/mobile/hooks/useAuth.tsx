@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
 
       const { role } = await response.json();
-      setIsAdmin(role);
+      setIsAdmin(role === "admin");
     } catch (error) {
       console.error("Role check failed:", error);
       setIsAdmin(false);

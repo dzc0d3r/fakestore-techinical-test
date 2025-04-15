@@ -4,11 +4,21 @@ import { AntDesign } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Picker } from "@react-native-picker/picker";
 import { useCreateProduct, useDeleteProduct, useProducts, useUpdateProduct, type Product } from "api";
+import { Redirect } from "expo-router";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { ActivityIndicator, FlatList, Modal, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { z } from "zod";
-
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -91,7 +101,9 @@ export default function AdminScreen() {
     }
   };
 
-  if (!isAdmin) return null;
+  if (!isAdmin) {
+    return <Redirect href="/" />;
+  }
 
   if (error) {
     return (
@@ -104,7 +116,7 @@ export default function AdminScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Product Management</Text>
+        <Text style={styles.title}>Product </Text>
         <Button
           onPress={() => {
             setSelectedProduct(null);
